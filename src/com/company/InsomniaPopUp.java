@@ -1,16 +1,20 @@
 package com.company;
 
+import sun.font.GraphicComponent;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class InsomniaPopUp extends JPopupMenu {
+
     public InsomniaPopUp() {
+
         this.setBackground(new Color(0xFFFAFA));
-        Font title = new Font("myFont",Font.ITALIC,10);
-        Font menu = new Font("myFont",Font.PLAIN,12);
-       setBorder(BorderFactory.createCompoundBorder(this.getBorder(), BorderFactory.createEmptyBorder(3, 0, 0, 0)));
+        Font title = new Font("myFont", Font.ITALIC, 10);
+        Font menu = new Font("myFont", Font.PLAIN, 12);
+        setBorder(BorderFactory.createCompoundBorder(this.getBorder(), BorderFactory.createEmptyBorder(3, 0, 0, 0)));
         JMenuItem INSOMNIA = new JMenuItem("INSOMNIA  _____________________________");
         INSOMNIA.setBorder(BorderFactory.createCompoundBorder(INSOMNIA.getBorder(), BorderFactory.createEmptyBorder(3, 2, 3, 0)));
         INSOMNIA.setFont(title);
@@ -24,7 +28,7 @@ public class InsomniaPopUp extends JPopupMenu {
         work.setBackground(new Color(0xFFFFFF));
         add(work);
 
-                JMenuItem share = new JMenuItem("Share Insomnia");
+        JMenuItem share = new JMenuItem("Share Insomnia");
         share.setBorder(BorderFactory.createCompoundBorder(share.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
         share.setFont(menu);
         add(share);
@@ -43,7 +47,7 @@ public class InsomniaPopUp extends JPopupMenu {
         create.setBackground(new Color(0xFFFFFF));
 
         add(create);
-                JMenuItem INS = new JMenuItem("INSOMNIA V7.1.1  ______________________");
+        JMenuItem INS = new JMenuItem("INSOMNIA V7.1.1  ______________________");
         INS.setBorder(BorderFactory.createCompoundBorder(INS.getBorder(), BorderFactory.createEmptyBorder(3, 0, 3, 0)));
         INS.setFont(title);
         add(INS);
@@ -67,6 +71,5 @@ public class InsomniaPopUp extends JPopupMenu {
         Log.setFont(menu);
         add(Log);
         Log.setBackground(new Color(0xFFFFFF));
-
     }
 }
