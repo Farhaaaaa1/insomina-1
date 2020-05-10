@@ -7,27 +7,66 @@ import java.awt.event.MouseEvent;
 
 public class InsomniaPopUp extends JPopupMenu {
     public InsomniaPopUp() {
-        JMenuItem workspace = new JMenuItem("what");
-        setBorder(BorderFactory.createCompoundBorder(this.getBorder(),BorderFactory.createEmptyBorder(10, 5, 0, 2)));
-        //workspace.setBackground();
-        JMenuItem workspace0 = new JMenuItem("what");
-        JMenuItem workspace1 = new JMenuItem(new ImageIcon("src/down1.png"));
-        workspace1.setText("djcoksjc");
-        JMenuItem workspace2 = new JMenuItem("  what   __________________________________");
-        workspace2.setFocusable(false);
-        workspace1.setBorder(BorderFactory.createCompoundBorder(workspace1.getBorder(),BorderFactory.createEmptyBorder(4, 5, 4, 2)));
-        workspace2.setEnabled(false);
-        workspace2.setFont(new Font("farhan",Font.ITALIC,10));
-        JMenuItem workspace3 = new JMenuItem("what");
-        JMenuItem workspace4 = new JMenuItem("what");
-        JMenuItem workspace5 = new JMenuItem("what");
-        add(workspace);
-        add(workspace1);
-        add(workspace0);
-        add(workspace2);
-        add(workspace3);
-        add(workspace4);
-        add(workspace5);
+        this.setBackground(new Color(0xFFFAFA));
+        Font title = new Font("myFont",Font.ITALIC,10);
+        Font menu = new Font("myFont",Font.PLAIN,12);
+       setBorder(BorderFactory.createCompoundBorder(this.getBorder(), BorderFactory.createEmptyBorder(3, 0, 0, 0)));
+        JMenuItem INSOMNIA = new JMenuItem("INSOMNIA  _____________________________");
+        INSOMNIA.setBorder(BorderFactory.createCompoundBorder(INSOMNIA.getBorder(), BorderFactory.createEmptyBorder(3, 2, 3, 0)));
+        INSOMNIA.setFont(title);
+        INSOMNIA.setBackground(new Color(0xFFFFFF));
+        add(INSOMNIA);
+        INSOMNIA.setEnabled(false);
+
+        JMenuItem work = new JMenuItem("Workspace Setting");
+        work.setBorder(BorderFactory.createCompoundBorder(work.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
+        work.setFont(menu);
+        work.setBackground(new Color(0xFFFFFF));
+        add(work);
+
+                JMenuItem share = new JMenuItem("Share Insomnia");
+        share.setBorder(BorderFactory.createCompoundBorder(share.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
+        share.setFont(menu);
+        add(share);
+        share.setBackground(new Color(0xFFFFFF));
+
+        JMenuItem switchh = new JMenuItem("SWITCH WORKSPACE  ___________________");
+        switchh.setBorder(BorderFactory.createCompoundBorder(switchh.getBorder(), BorderFactory.createEmptyBorder(3, 2, 3, 0)));
+        switchh.setFont(title);
+        switchh.setEnabled(false);
+        add(switchh);
+        switchh.setBackground(new Color(0xFFFFFF));
+
+        JMenuItem create = new JMenuItem("Create Workspace");
+        create.setBorder(BorderFactory.createCompoundBorder(create.getBorder(), BorderFactory.createEmptyBorder(10, 30, 10, 0)));
+        create.setFont(menu);
+        create.setBackground(new Color(0xFFFFFF));
+
+        add(create);
+                JMenuItem INS = new JMenuItem("INSOMNIA V7.1.1  ______________________");
+        INS.setBorder(BorderFactory.createCompoundBorder(INS.getBorder(), BorderFactory.createEmptyBorder(3, 0, 3, 0)));
+        INS.setFont(title);
+        add(INS);
+        INS.setBackground(new Color(0xFFFFFF));
+        INS.setEnabled(false);
+
+        JMenuItem pre = new JMenuItem("Preference");
+        pre.setBorder(BorderFactory.createCompoundBorder(pre.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
+        pre.setFont(menu);
+        pre.setBackground(new Color(0xFFFFFF));
+        add(pre);
+
+        JMenuItem Imp = new JMenuItem("Import/Export");
+        Imp.setBorder(BorderFactory.createCompoundBorder(Imp.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
+        Imp.setFont(menu);
+        Imp.setBackground(new Color(0xFFFFFF));
+        add(Imp);
+
+        JMenuItem Log = new JMenuItem("Log In");
+        Log.setBorder(BorderFactory.createCompoundBorder(Log.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
+        Log.setFont(menu);
+        add(Log);
+        Log.setBackground(new Color(0xFFFFFF));
 
     }
 }
