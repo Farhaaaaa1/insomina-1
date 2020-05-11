@@ -13,10 +13,11 @@ public class Folder {
     public JPanel label = new JPanel();
     public JPanel temp = new JPanel();
     public JButton down = new JButton(new ImageIcon("src/down1.png"));
-
+    Insomina frame ;
     Color myColor = new Color(0x353535);
 
-    public Folder() {
+    public Folder(LeftPanel leftPanel) {
+        this.frame = frame ;
         label.setLayout(new BorderLayout());
         label.setBackground(myColor);
         down.setBackground(myColor);
@@ -31,6 +32,7 @@ public class Folder {
                 super.mouseEntered(e);
                 down.setBackground(myColor.brighter());
                 label.setBackground(myColor.brighter());
+
             }
 
             @Override
@@ -55,7 +57,7 @@ public class Folder {
             label.add(open, BorderLayout.WEST);
             label.setVisible(true);
             label.add(temp, BorderLayout.CENTER);
-            label.setBorder(BorderFactory.createCompoundBorder(label.getBorder(), BorderFactory.createEmptyBorder(8, 8, 8, 10)));
+            label.setBorder(BorderFactory.createCompoundBorder(label.getBorder(), BorderFactory.createEmptyBorder(6, 8, 6, 10)));
             label.add(Box.createRigidArea(new Dimension(5, 20)));
             label.addMouseListener(new MouseAdapter() {
                 @Override

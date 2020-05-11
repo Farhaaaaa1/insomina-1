@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Insomina extends JFrame {
-    LeftPanel leftPanel = new LeftPanel();
+    LeftPanel leftPanel = new LeftPanel(this);
     JPanel midPanel= new JPanel() ;
     JPanel rightPanel = new JPanel();
     public Insomina(){
