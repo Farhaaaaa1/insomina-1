@@ -2,16 +2,17 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class AddFolderAndReqToList extends MouseAdapter {
     JButton plus = new JButton();
     Color color;
     Boolean isFirst = true ;
     JPopupMenu popupMenu = new JPopupMenu();
-    public AddFolderAndReqToList(JButton plus) {
+    LeftPanel leftPanel ;
+    public AddFolderAndReqToList(JButton plus , LeftPanel leftPanel) {
         this.plus = plus;
+        this.leftPanel = leftPanel ;
         color = plus.getBackground();
     }
 
@@ -21,7 +22,7 @@ public class AddFolderAndReqToList extends MouseAdapter {
         if(isFirst)
         popUpCreating(popupMenu);
         popupMenu.show(plus,e.getX(),e.getY());
-        // String name = JOptionPane.showInputDialog("enter your name bro ") ;
+//         String name1 = JOptionPane.showInputDialog("enter your name bro ") ;
     }
 
     @Override
@@ -39,12 +40,28 @@ public class AddFolderAndReqToList extends MouseAdapter {
 
     public void popUpCreating(JPopupMenu popupMenu) {
         popupMenu.setBackground(new Color(0xFFFAFA));
+        JMenuItem folder = createItem("New Folder");
+        JMenuItem request = createItem("New Request");
+        popupMenu.add(folder);
+        folder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                        leftPanel.folderTxt = JOptionPane.showInputDialog("enter your name bro ") ;
+
+            }
+        });
+
+        popupMenu.addSeparator();
+        popupMenu.add(request);
+        isFirst = false ;
+    }
+    public JMenuItem createItem(String text)
+    {
         Font menu = new Font("myFont", Font.PLAIN, 12);
-        JMenuItem INSOMNIA = new JMenuItem("isjdcosjvok");
+        JMenuItem INSOMNIA = new JMenuItem(text);
         INSOMNIA.setBorder(BorderFactory.createCompoundBorder(INSOMNIA.getBorder(), BorderFactory.createEmptyBorder(3, 12, 3, 10)));
         INSOMNIA.setFont(menu);
         INSOMNIA.setBackground(new Color(0xFFFFFF));
-        popupMenu.add(INSOMNIA);
-        isFirst = false ;
+        return INSOMNIA ;
     }
 }

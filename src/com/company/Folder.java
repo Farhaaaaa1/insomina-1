@@ -8,24 +8,51 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.LinkedList;
 
-public class Folder {
-    public JPanel label = new JPanel();
-    public JPanel temp = new JPanel();
-    public JButton down = new JButton(new ImageIcon("src/down1.png"));
-    Insomina frame ;
-    Color myColor = new Color(0x353535);
+public class Folder extends Files {
+    JLabel label;
+    JLabel labelTxt;
+    public JPanel panel = new JPanel();
+    Image[] icons = {changSize(new ImageIcon("src/close.png"), 14, 14), changSize(new ImageIcon("src/open.png"), 14, 14)};
+    // LinkedList<Req> reqs = new LinkedList<>();
+    Color color = new Color(0x2D2D2D);
 
     public Folder(LeftPanel leftPanel) {
-        this.frame = frame ;
-        label.setLayout(new BorderLayout());
-        label.setBackground(myColor);
-        down.setBackground(myColor);
-        down.setOpaque(true);
-        down.setFocusable(false);
-        down.setBorderPainted(false);
-        down.setEnabled(false);
-        label.add(down,BorderLayout.EAST);
+        super(leftPanel);
+        panel.setVisible(true);
+        label = new JLabel(new ImageIcon(icons[0]));
+        label.setBackground(color);
+        labelTxt = new JLabel("hello");
+        labelTxt.setForeground(Color.WHITE);
+        JButton btn = new JButton(new ImageIcon("src/down1.png"));
+        comouflage(btn, color);
+        panel.setLayout(new BorderLayout());
+        panel.add(label, BorderLayout.WEST);
+        JPanel temp = new JPanel();
+        JPanel temp1 = new JPanel();
+        temp1.setBackground(Color.magenta);
+        temp.setBackground(Color.CYAN);
+        btn.setBorder(BorderFactory.createCompoundBorder(btn.getBorder(), BorderFactory.createEmptyBorder(1, 8, 1, 8)));
+        panel.add(temp, BorderLayout.CENTER);
+        temp.setLayout(new BorderLayout());
+        label.setBorder(BorderFactory.createCompoundBorder(label.getBorder(), BorderFactory.createEmptyBorder(8, 7, 8, 8)));
+        temp.add(labelTxt, BorderLayout.WEST);
+        panel.setBackground(Color.YELLOW);
+        panel.add(btn, BorderLayout.EAST);
+        generalPannel.add(panel);
+        generalPannel.add(temp1);
+        btn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                repaint();
+                revalidate();
+            }
+        });
+    }
+
+    public void addActions() {
         down.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -50,33 +77,25 @@ public class Folder {
 
             }
         });
-        {
+        label.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                down.setBackground(myColor.brighter());
+                label.setBackground(myColor.brighter());
+            }
 
-            JLabel open = new JLabel(new ImageIcon("src/close.png"));
-            label.add(open, BorderLayout.WEST);
-            label.setVisible(true);
-            label.add(temp, BorderLayout.CENTER);
-            label.setBorder(BorderFactory.createCompoundBorder(label.getBorder(), BorderFactory.createEmptyBorder(6, 8, 6, 10)));
-            label.add(Box.createRigidArea(new Dimension(5, 20)));
-            label.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    super.mouseEntered(e);
-                    down.setBackground(myColor.brighter());
-                    label.setBackground(myColor.brighter());
-                }
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    super.mouseExited(e);
-                    label.setBackground(myColor);
-                    down.setBackground(myColor);
-                }
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    super.mouseClicked(e);
-                }
-            });
-        }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                label.setBackground(myColor);
+                down.setBackground(myColor);
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+            }
+        });
     }
-
 }

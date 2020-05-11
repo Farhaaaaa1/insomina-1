@@ -12,8 +12,8 @@ public class LeftPanel extends JPanel {
     JButton mb = new JButton();
     private LinkedList<Files> files = new LinkedList<>();
     JPanel req = new JPanel();
-    Folder folder = new Folder(this);
-
+    String requestTxt ;
+    String folderTxt ;
     private class InsomButton {
         public InsomButton() {
             prepareInsomniaButton(mb);
@@ -47,7 +47,7 @@ public class LeftPanel extends JPanel {
         req.add(Box.createRigidArea(new Dimension(10, 20)));
         JButton show = new JButton(new ImageIcon("src/1.png"));
         comouflage(show, new Color(0x2D2D2D));
-        show.addMouseListener(new AddFolderAndReqToList(show));
+        show.addMouseListener(new AddFolderAndReqToList(show , this));
         show.setEnabled(false);
         req.add(txt, BorderLayout.CENTER);
         req.add(show, BorderLayout.EAST);
@@ -55,6 +55,14 @@ public class LeftPanel extends JPanel {
         show.setBorder(BorderFactory.createCompoundBorder(mb.getBorder(), BorderFactory.createEmptyBorder(0, 3, 0, 2)));
         add(temp, BorderLayout.CENTER);
         temp.add(req, BorderLayout.NORTH);
+        Folder folder = new Folder(this);
+        JPanel p = new JPanel();
+        JPanel temp1 = new JPanel();
+        p.setLayout(new BoxLayout(p,BoxLayout.Y_AXIS));
+        temp.add(temp1,BorderLayout.CENTER);
+        temp1.setLayout(new BorderLayout());
+        temp1.add(p,BorderLayout.NORTH);
+        p.add(folder.generalPannel);
         new InsomButton();
     }
 
