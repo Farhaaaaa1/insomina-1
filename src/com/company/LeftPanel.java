@@ -2,6 +2,8 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
@@ -74,6 +76,21 @@ public class LeftPanel extends JPanel {
         txt.setBackground(new Color(0x2D2D2D));
         txt.setFont(new Font("WTF", Font.ROMAN_BASELINE, 11));
         txt.setForeground(new Color(0xFFFFFA));
+        txt.setText("Filter...");
+        txt.addMouseListener(new Hover(txt));
+        revalidate();
+        repaint();
+        txt.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                if(txt.getText().equals(""))
+                    txt.setText("Filter...");
+            }
+        });
+        revalidate();
+        repaint();
+
     }
 
     public void prepareInsomniaButton(JButton mb) {
@@ -86,7 +103,7 @@ public class LeftPanel extends JPanel {
         mb.setForeground(Color.WHITE);
         mb.add(down, BorderLayout.EAST);
         mb.add(Box.createRigidArea(new Dimension(5, 35)));
-    }
+            }
 
     public void comouflage(JButton btn, Color color) {
         btn.setPreferredSize(new Dimension(38, 5));

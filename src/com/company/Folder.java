@@ -32,7 +32,6 @@ public class Folder {
                 super.mouseEntered(e);
                 down.setBackground(myColor.brighter());
                 label.setBackground(myColor.brighter());
-
             }
 
             @Override
