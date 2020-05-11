@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public abstract class Files extends JPanel {
+public abstract class Files  {
 
     public JPanel generalPannel = new JPanel();
     public String text;

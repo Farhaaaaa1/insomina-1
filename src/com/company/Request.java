@@ -10,9 +10,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 
-public class Folder extends Files {
+public class Request extends Files {
     JLabel label;
-    String openOrNot = "close";
     JLabel labelTxt;
     JPanel innerFolders = new JPanel();
     public JPanel panel = new JPanel();
@@ -21,7 +20,7 @@ public class Folder extends Files {
     LinkedList<Files> myFiles = new LinkedList<>();
     Color color = new Color(0x2D2D2D);
 
-    public Folder(LeftPanel leftPanel, String txt) {
+    public Request(LeftPanel leftPanel, String txt) {
         super(leftPanel);
         panel.setVisible(true);
         label = new JLabel(new ImageIcon(icons[0]));
@@ -45,6 +44,7 @@ public class Folder extends Files {
         panel.add(btn, BorderLayout.EAST);
         generalPannel.add(panel);
     }
+
 
     public void addActions(JButton btn) {
         btn.addMouseListener(new MouseAdapter() {
@@ -91,23 +91,6 @@ public class Folder extends Files {
                 btn.setBackground(color);
             }
 
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                if (openOrNot.equals("close")) {
-                    generalPannel.add(innerFolders);
-                    label.setIcon(new ImageIcon(icons[1]));
-                    panel.updateUI();
-                    openOrNot = "open" ;
-                } else {
-                    generalPannel.remove(innerFolders);
-                    label.setIcon(new ImageIcon(icons[0]));
-                    panel.updateUI();
-                    openOrNot = "close" ;
-                }
-                generalPannel.updateUI();
-
-            }
         });
     }
 }

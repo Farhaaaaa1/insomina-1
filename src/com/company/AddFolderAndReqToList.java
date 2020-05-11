@@ -10,6 +10,7 @@ public class AddFolderAndReqToList extends MouseAdapter {
     Boolean isFirst = true ;
     JPopupMenu popupMenu = new JPopupMenu();
     LeftPanel leftPanel ;
+    String openOrNot = "Close";
     public AddFolderAndReqToList(JButton plus , LeftPanel leftPanel) {
         this.plus = plus;
         this.leftPanel = leftPanel ;
@@ -47,12 +48,23 @@ public class AddFolderAndReqToList extends MouseAdapter {
             @Override
             public void actionPerformed(ActionEvent e) {
                         leftPanel.folderTxt = JOptionPane.showInputDialog("enter your name bro ") ;
-
+                        leftPanel.files.add(new Folder(leftPanel,leftPanel.folderTxt));
+                        leftPanel.addToReq();
+                        leftPanel.p.updateUI();
             }
         });
 
         popupMenu.addSeparator();
         popupMenu.add(request);
+        request.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                leftPanel.requestTxt = JOptionPane.showInputDialog("enter your name bro ") ;
+                leftPanel.files.add(new Request(leftPanel,leftPanel.requestTxt));
+                leftPanel.addToReq();
+                leftPanel.p.updateUI();
+            }
+        });
         isFirst = false ;
     }
     public JMenuItem createItem(String text)

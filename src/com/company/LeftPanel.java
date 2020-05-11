@@ -10,10 +10,12 @@ import java.util.LinkedList;
 
 public class LeftPanel extends JPanel {
     JButton mb = new JButton();
-    private LinkedList<Files> files = new LinkedList<>();
+    public LinkedList<Files> files = new LinkedList<>();
     JPanel req = new JPanel();
     String requestTxt ;
     String folderTxt ;
+    boolean a = true ;
+    JPanel p = new JPanel();
     private class InsomButton {
         public InsomButton() {
             prepareInsomniaButton(mb);
@@ -55,23 +57,25 @@ public class LeftPanel extends JPanel {
         show.setBorder(BorderFactory.createCompoundBorder(mb.getBorder(), BorderFactory.createEmptyBorder(0, 3, 0, 2)));
         add(temp, BorderLayout.CENTER);
         temp.add(req, BorderLayout.NORTH);
-        Folder folder = new Folder(this);
-        JPanel p = new JPanel();
         JPanel temp1 = new JPanel();
-        p.setLayout(new BoxLayout(p,BoxLayout.Y_AXIS));
         temp.add(temp1,BorderLayout.CENTER);
         temp1.setLayout(new BorderLayout());
         temp1.add(p,BorderLayout.NORTH);
-        p.add(folder.generalPannel);
+        p.updateUI();
+        addToReq();
+        repaint();
+        revalidate();
         new InsomButton();
     }
 
     public void addToReq() {
         for (Files F :
                 files) {
-            // req.setLayout(new BoxLayout(req, BoxLayout.Y_AXIS));
-            //  req.add(f.label);
+             p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+             p.add(F.generalPannel);
         }
+        repaint();
+        revalidate();
     }
 
     public void addList() {
