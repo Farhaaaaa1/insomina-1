@@ -1,15 +1,10 @@
 package com.company;
 
-import com.sun.xml.internal.ws.encoding.ImageDataContentHandler;
-
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 
 public class LeftPanel extends JPanel {
     JButton mb = new JButton();
@@ -19,10 +14,8 @@ public class LeftPanel extends JPanel {
 
     private class InsomButton {
         public InsomButton() {
-            mb.setLayout(new BorderLayout());
-            mb.setBorder(BorderFactory.createCompoundBorder(mb.getBorder(), BorderFactory.createEmptyBorder(0, 0, 0, 2)));
+            prepareInsomniaButton(mb);
             InsomniaPopUp popupMenu = new InsomniaPopUp();
-            JLabel down = new JLabel(new ImageIcon("src/down1.png"));
             mb.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
@@ -30,18 +23,11 @@ public class LeftPanel extends JPanel {
                     popupMenu.show(mb, e.getX(), e.getY());
                 }
             });
-            mb.add(down, BorderLayout.EAST);
             JLabel insomnia = new JLabel("Insomnia  ");
             insomnia.setForeground(new Color(0xFFFAFA).brighter().brighter().brighter());
             insomnia.setFont(new Font("farhan", Font.BOLD, 18));
             mb.add(insomnia, BorderLayout.WEST);
-            mb.setOpaque(true);
-            mb.setBorderPainted(false);
-            mb.setBackground(new Color(0x6860B4));
-            mb.setForeground(Color.WHITE);
-            mb.add(Box.createRigidArea(new Dimension(5, 35)));
             popupMenu.setBorder(BorderFactory.createCompoundBorder(popupMenu.getBorder(), BorderFactory.createEmptyBorder(0, 0, 0, -38)));
-
             add(mb, BorderLayout.NORTH);
 
         }
@@ -51,30 +37,27 @@ public class LeftPanel extends JPanel {
         setLayout(new BorderLayout());
         JPanel temp = new JPanel();
         temp.setBackground(Color.RED);
-        req.setBackground(Color.DARK_GRAY);
+        req.setBackground(new Color(0x2D2D2D));
         req.setLayout(new BorderLayout());
         JTextField txt = new JTextField();
-        txt.setPreferredSize(new Dimension(110, 23));
+        prepareText(txt);
         req.setBorder(BorderFactory.createCompoundBorder(req.getBorder(), BorderFactory.createEmptyBorder(5, 4, 5, 2)));
-        txt.setBorder(BorderFactory.createCompoundBorder(txt.getBorder(), BorderFactory.createEmptyBorder(0, 3, 0, 40)));
-        txt.setBackground(Color.darkGray);
-        txt.setOpaque(true);
-        txt.setFont(new Font("WTF", Font.ROMAN_BASELINE, 11));
-        txt.setForeground(new Color(0xFFFFFA));
         req.add(Box.createRigidArea(new Dimension(10, 20)));
-        JLabel btn = new JLabel();
-        btn.setIcon(new ImageIcon("src/1.png"));
+        JButton show = new JButton(new ImageIcon("src/1.png"));
+        comouflage(show, new Color(0x2D2D2D));
+        show.addMouseListener(new AddFolderAndReqToList(show));
+        show.setEnabled(false);
         req.add(txt, BorderLayout.CENTER);
-        req.add(btn, BorderLayout.EAST);
+        req.add(show, BorderLayout.EAST);
         temp.setLayout(new BorderLayout());
-        btn.setBorder(BorderFactory.createCompoundBorder(mb.getBorder(), BorderFactory.createEmptyBorder(0, 3, 0, 2)));
+        show.setBorder(BorderFactory.createCompoundBorder(mb.getBorder(), BorderFactory.createEmptyBorder(0, 3, 0, 2)));
         add(temp, BorderLayout.CENTER);
         temp.add(req, BorderLayout.NORTH);
         new InsomButton();
     }
 
     public void addToReq() {
-        for (Object f :
+        for (Files F :
                 files) {
             // req.setLayout(new BoxLayout(req, BoxLayout.Y_AXIS));
             //  req.add(f.label);
@@ -84,5 +67,34 @@ public class LeftPanel extends JPanel {
     public void addList() {
 
     }
+
+    public void prepareText(JTextField txt) {
+        txt.setPreferredSize(new Dimension(110, 23));
+        txt.setBorder(BorderFactory.createCompoundBorder(txt.getBorder(), BorderFactory.createEmptyBorder(0, 3, 0, 40)));
+        txt.setBackground(new Color(0x2D2D2D));
+        txt.setFont(new Font("WTF", Font.ROMAN_BASELINE, 11));
+        txt.setForeground(new Color(0xFFFFFA));
+    }
+
+    public void prepareInsomniaButton(JButton mb) {
+        JLabel down = new JLabel(new ImageIcon("src/down1.png"));
+        mb.setLayout(new BorderLayout());
+        mb.setBorder(BorderFactory.createCompoundBorder(mb.getBorder(), BorderFactory.createEmptyBorder(0, 0, 0, 2)));
+        mb.setOpaque(true);
+        mb.setBorderPainted(false);
+        mb.setBackground(new Color(0x6860B4));
+        mb.setForeground(Color.WHITE);
+        mb.add(down, BorderLayout.EAST);
+        mb.add(Box.createRigidArea(new Dimension(5, 35)));
+    }
+
+    public void comouflage(JButton btn, Color color) {
+        btn.setPreferredSize(new Dimension(38, 5));
+        btn.setBackground(color);
+        btn.setOpaque(true);
+        btn.setBorderPainted(false);
+        btn.setEnabled(false);
+    }
+
 
 }
