@@ -52,18 +52,46 @@ public class MidBar extends JPanel {
         Font title = new Font("myFont", Font.ITALIC, 10);
         Font menu = new Font("myFont", Font.PLAIN, 12);
         setBorder(BorderFactory.createCompoundBorder(this.getBorder(), BorderFactory.createEmptyBorder(3, 0, 0, 0)));
-        JMenuItem INSOMNIA = new JMenuItem("INSOMNIA  _____________________________");
+        JMenuItem INSOMNIA = new JMenuItem("STRUCTURED  _____________________________");
         INSOMNIA.setBorder(BorderFactory.createCompoundBorder(INSOMNIA.getBorder(), BorderFactory.createEmptyBorder(3, 2, 3, 0)));
         INSOMNIA.setFont(title);
         INSOMNIA.setBackground(new Color(0xFFFFFF));
         popupMenu.add(INSOMNIA);
         INSOMNIA.setEnabled(false);
-
         JMenuItem work = new JMenuItem("Workspace Setting");
         work.setBorder(BorderFactory.createCompoundBorder(work.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
         work.setFont(menu);
         work.setBackground(new Color(0xFFFFFF));
         popupMenu.add(work);
+
+
+
+        JMenuItem INSOMNIA1 = new JMenuItem("TEXT  _____________________________");
+        INSOMNIA1.setBorder(BorderFactory.createCompoundBorder(INSOMNIA1.getBorder(), BorderFactory.createEmptyBorder(3, 2, 3, 0)));
+        INSOMNIA1.setFont(title);
+        INSOMNIA1.setBackground(new Color(0xFFFFFF));
+        popupMenu.add(INSOMNIA1);
+        INSOMNIA1.setEnabled(false);
+        JMenuItem work1 = new JMenuItem("Workspace Setting");
+        work1.setBorder(BorderFactory.createCompoundBorder(work1.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
+        work1.setFont(menu);
+        work1.setBackground(new Color(0xFFFFFF));
+        popupMenu.add(work1);
+
+
+
+        JMenuItem INSOMNIA2 = new JMenuItem("OTHER  _____________________________");
+        INSOMNIA2.setBorder(BorderFactory.createCompoundBorder(INSOMNIA2.getBorder(), BorderFactory.createEmptyBorder(3, 2, 3, 0)));
+        INSOMNIA2.setFont(title);
+        INSOMNIA2.setBackground(new Color(0xFFFFFF));
+        popupMenu.add(INSOMNIA2);
+        INSOMNIA2.setEnabled(false);
+
+        JMenuItem work2 = new JMenuItem("Workspace Setting");
+        work2.setBorder(BorderFactory.createCompoundBorder(work2.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
+        work2.setFont(menu);
+        work2.setBackground(new Color(0xFFFFFF));
+        popupMenu.add(work2);
 
     }
 
