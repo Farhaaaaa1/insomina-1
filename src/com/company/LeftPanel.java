@@ -56,7 +56,7 @@ public class LeftPanel extends JPanel {
         req.add(txt, BorderLayout.CENTER);
         req.add(show, BorderLayout.EAST);
         temp.setLayout(new BorderLayout());
-        show.setBorder(BorderFactory.createCompoundBorder(mb.getBorder(), BorderFactory.createEmptyBorder(0, 3, 0, 2)));
+        show.setBorder(BorderFactory.createCompoundBorder(mb.getBorder(), BorderFactory.createEmptyBorder(3, 3, 3, 2)));
         add(temp, BorderLayout.CENTER);
         temp.add(req, BorderLayout.NORTH);
         JPanel temp1 = new JPanel();
@@ -85,7 +85,7 @@ public class LeftPanel extends JPanel {
     }
 
     public void prepareText(JTextField txt) {
-        txt.setPreferredSize(new Dimension(110, 23));
+        txt.setPreferredSize(new Dimension(110, 30));
         txt.setBorder(BorderFactory.createCompoundBorder(txt.getBorder(), BorderFactory.createEmptyBorder(0, 3, 0, 40)));
         txt.setBackground(new Color(0x2D2D2D));
         txt.setFont(new Font("WTF", Font.ROMAN_BASELINE, 11));

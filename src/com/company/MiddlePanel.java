@@ -6,24 +6,32 @@ import java.awt.event.*;
 
 public class MiddlePanel extends JPanel {
     JButton cb = new JButton();
+    JLabel send = new JLabel("SEND");
     JTextField textField = new JTextField();
     String text = "option";
     Color colorr;
     Boolean isFirst = true;
     JPanel upBar = new JPanel();
+    JPanel midBar = new JPanel();
     JPopupMenu popupMenu = new JPopupMenu();
 
     public MiddlePanel(Insomina frame) {
         setLayout(new BorderLayout());
         add(upBar, BorderLayout.NORTH);
+        MidBar midBar = new MidBar();
+        add(midBar, BorderLayout.CENTER);
+
         prepareText(textField);
         upBar.setLayout(new BorderLayout());
+        setSendBtn(send);
         setCb(new Color(0xD4D4D4), "option");
         cb.setBorder(BorderFactory.createCompoundBorder(cb.getBorder(), BorderFactory.createEmptyBorder(0, -20, 0, 0)));
+        send.setBorder(BorderFactory.createCompoundBorder(send.getBorder(), BorderFactory.createEmptyBorder(0, 5, 0, 0)));
         setPopupMenu();
         upBar.add(Box.createRigidArea(new Dimension(5, 45)));
         upBar.add(textField, BorderLayout.CENTER);
         upBar.add(cb, BorderLayout.WEST);
+        upBar.add(send, BorderLayout.EAST);
 
     }
 
@@ -42,6 +50,15 @@ public class MiddlePanel extends JPanel {
                 popupMenu.show(cb, e.getX(), e.getY());
             }
         });
+    }
+
+    public void setSendBtn(JLabel btn) {
+        btn.setPreferredSize(new Dimension(75, 5));
+        btn.setBackground(Color.BLACK);
+        btn.setFont(new Font("WTF", Font.LAYOUT_NO_LIMIT_CONTEXT, 15));
+        btn.setOpaque(true);
+       //btn.setBorderPainted(false);
+        btn.setEnabled(false);
     }
 
     public void setPopupMenu() {
@@ -110,11 +127,11 @@ public class MiddlePanel extends JPanel {
 
 
         if (isFirst) {
-            addToPup(del,new Color(0x9A252A ));
-            addToPup(get , new Color(0x6E2284));
-            addToPup(post,new Color(0x50833F));
-            addToPup(put,new Color(0xA95020));
-            addToPup(pats,new Color(0xB5A648));
+            addToPup(del, new Color(0x9A252A));
+            addToPup(get, new Color(0x6E2284));
+            addToPup(post, new Color(0x50833F));
+            addToPup(put, new Color(0xA95020));
+            addToPup(pats, new Color(0xB5A648));
 
             isFirst = false;
         }
@@ -134,7 +151,7 @@ public class MiddlePanel extends JPanel {
         txt.setBorder(BorderFactory.createCompoundBorder(upBar.getBorder(), BorderFactory.createEmptyBorder(8, 3, 8, 10)));
         txt.setBackground(new Color(0xFFFFFA));
         txt.setFont(new Font("WTF", Font.ROMAN_BASELINE, 15));
-        txt.setForeground(new Color(0x2D2D2D));
+        txt.setForeground(Color.gray);
         txt.setText("https://wtf.myfucking.com");
         txt.addMouseListener(new Hover(txt, Color.gray));
         revalidate();

@@ -1,32 +1,39 @@
 package com.company;
 
-import java.awt.event.ActionEvent;
+import java.awt.*;
+import java.awt.event.*;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JList;
+import javax.swing.*;
 
-class GettingSettingSelectedItem {
+public class Test extends JFrame implements ActionListener{
+    CardLayout card;
+    JButton b1,b2,b3;
+    Container c;
+    Test(){
 
-    public static void main(String[] a) {
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JButton jButton1 = new JButton("Button");
+        c=getContentPane();
+        card=new CardLayout(40,30);
+//create CardLayout object with 40 hor space and 30 ver space
+        c.setLayout(card);
 
-        String[] mystring = { "Java", "JBuilder", "JFC", "Swing" };
-        final JList jList1 = new JList(mystring);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Object contents = jList1.getSelectedValue();
-                System.out.println(contents);
-            }
-        });
+        b1=new JButton("Apple");
+        b2=new JButton("Boy");
+        b3=new JButton("Cat");
+        b1.addActionListener(this);
+        b2.addActionListener(this);
+        b3.addActionListener(this);
 
-        frame.add(jList1, "Center");
-        frame.add(jButton1,"South");
+        c.add("a",b1);c.add("b",b2);c.add("c",b3);
 
-        frame.setSize(300, 200);
-        frame.setVisible(true);
+    }
+    public void actionPerformed(ActionEvent e) {
+        card.next(c);
     }
 
+    public static void main(String[] args) {
+        Test cl=new Test();
+        cl.setSize(400,400);
+        cl.setVisible(true);
+        cl.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
 }
