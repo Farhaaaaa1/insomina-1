@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Insomina extends JFrame {
     LeftPanel leftPanel = new LeftPanel(this);
-    JPanel midPanel= new JPanel() ;
+    MiddlePanel middlePanel= new MiddlePanel(this);
     JPanel rightPanel = new JPanel();
     public Insomina(){
         Panels3 panels3 = new Panels3(this) ;
@@ -12,7 +12,7 @@ public class Insomina extends JFrame {
         add(panels3);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(700,300);
+        setSize(500,500);
     }
 }
 //UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());

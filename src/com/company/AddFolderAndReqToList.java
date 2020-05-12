@@ -7,22 +7,23 @@ import java.awt.event.*;
 public class AddFolderAndReqToList extends MouseAdapter {
     JButton plus = new JButton();
     Color color;
-    Boolean isFirst = true ;
+    Boolean isFirst = true;
     JPopupMenu popupMenu = new JPopupMenu();
-    LeftPanel leftPanel ;
+    LeftPanel leftPanel;
     String openOrNot = "Close";
-    public AddFolderAndReqToList(JButton plus , LeftPanel leftPanel) {
+
+    public AddFolderAndReqToList(JButton plus, LeftPanel leftPanel) {
         this.plus = plus;
-        this.leftPanel = leftPanel ;
+        this.leftPanel = leftPanel;
         color = plus.getBackground();
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
-        if(isFirst)
-        popUpCreating(popupMenu);
-        popupMenu.show(plus,e.getX(),e.getY());
+        if (isFirst)
+            popUpCreating(popupMenu);
+        popupMenu.show(plus, e.getX(), e.getY());
 //         String name1 = JOptionPane.showInputDialog("enter your name bro ") ;
     }
 
@@ -47,10 +48,10 @@ public class AddFolderAndReqToList extends MouseAdapter {
         folder.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                        leftPanel.folderTxt = JOptionPane.showInputDialog("enter your name bro ") ;
-                        leftPanel.files.add(new Folder(leftPanel,leftPanel.folderTxt));
-                        leftPanel.addToReq();
-                        leftPanel.p.updateUI();
+                leftPanel.folderTxt = JOptionPane.showInputDialog("enter your name bro ");
+                leftPanel.files.add(new Folder(leftPanel, leftPanel.folderTxt));
+                leftPanel.addToReq();
+                leftPanel.p.updateUI();
             }
         });
 
@@ -59,21 +60,22 @@ public class AddFolderAndReqToList extends MouseAdapter {
         request.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                leftPanel.requestTxt = JOptionPane.showInputDialog("enter your name bro ") ;
-                leftPanel.files.add(new Request(leftPanel,leftPanel.requestTxt));
+                leftPanel.requestTxt = JOptionPane.showInputDialog("enter your name bro ");
+
+                leftPanel.files.add(new Request(leftPanel, leftPanel.requestTxt));
                 leftPanel.addToReq();
                 leftPanel.p.updateUI();
             }
         });
-        isFirst = false ;
+        isFirst = false;
     }
-    public JMenuItem createItem(String text)
-    {
+
+    public JMenuItem createItem(String text) {
         Font menu = new Font("myFont", Font.PLAIN, 12);
         JMenuItem INSOMNIA = new JMenuItem(text);
         INSOMNIA.setBorder(BorderFactory.createCompoundBorder(INSOMNIA.getBorder(), BorderFactory.createEmptyBorder(3, 12, 3, 10)));
         INSOMNIA.setFont(menu);
         INSOMNIA.setBackground(new Color(0xFFFFFF));
-        return INSOMNIA ;
+        return INSOMNIA;
     }
 }

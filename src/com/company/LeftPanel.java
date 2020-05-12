@@ -12,10 +12,12 @@ public class LeftPanel extends JPanel {
     JButton mb = new JButton();
     public LinkedList<Files> files = new LinkedList<>();
     JPanel req = new JPanel();
-    String requestTxt ;
-    String folderTxt ;
-    boolean a = true ;
+    String requestTxt;
+    String folderTxt;
+    public int kind;
+    boolean a = true;
     JPanel p = new JPanel();
+
     private class InsomButton {
         public InsomButton() {
             prepareInsomniaButton(mb);
@@ -49,7 +51,7 @@ public class LeftPanel extends JPanel {
         req.add(Box.createRigidArea(new Dimension(10, 20)));
         JButton show = new JButton(new ImageIcon("src/1.png"));
         comouflage(show, new Color(0x2D2D2D));
-        show.addMouseListener(new AddFolderAndReqToList(show , this));
+        show.addMouseListener(new AddFolderAndReqToList(show, this));
         show.setEnabled(false);
         req.add(txt, BorderLayout.CENTER);
         req.add(show, BorderLayout.EAST);
@@ -58,9 +60,9 @@ public class LeftPanel extends JPanel {
         add(temp, BorderLayout.CENTER);
         temp.add(req, BorderLayout.NORTH);
         JPanel temp1 = new JPanel();
-        temp.add(temp1,BorderLayout.CENTER);
+        temp.add(temp1, BorderLayout.CENTER);
         temp1.setLayout(new BorderLayout());
-        temp1.add(p,BorderLayout.NORTH);
+        temp1.add(p, BorderLayout.NORTH);
         p.updateUI();
         addToReq();
         repaint();
@@ -71,8 +73,8 @@ public class LeftPanel extends JPanel {
     public void addToReq() {
         for (Files F :
                 files) {
-             p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
-             p.add(F.generalPannel);
+            p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+            p.add(F.generalPannel);
         }
         repaint();
         revalidate();
@@ -89,14 +91,14 @@ public class LeftPanel extends JPanel {
         txt.setFont(new Font("WTF", Font.ROMAN_BASELINE, 11));
         txt.setForeground(new Color(0xFFFFFA));
         txt.setText("Filter...");
-        txt.addMouseListener(new Hover(txt));
+        txt.addMouseListener(new Hover(txt,Color.WHITE));
         revalidate();
         repaint();
         txt.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
                 super.focusLost(e);
-                if(txt.getText().equals(""))
+                if (txt.getText().equals(""))
                     txt.setText("Filter...");
             }
         });
@@ -115,7 +117,7 @@ public class LeftPanel extends JPanel {
         mb.setForeground(Color.WHITE);
         mb.add(down, BorderLayout.EAST);
         mb.add(Box.createRigidArea(new Dimension(5, 35)));
-            }
+    }
 
     public void comouflage(JButton btn, Color color) {
         btn.setPreferredSize(new Dimension(38, 5));

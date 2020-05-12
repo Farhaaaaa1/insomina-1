@@ -34,14 +34,14 @@ public class Folder extends Files {
         panel.setLayout(new BorderLayout());
         panel.add(label, BorderLayout.WEST);
         addActions(btn);
-        innerFolders.setBackground(myColor);
+        innerFolders.setBackground(color);
         temp.setBackground(color);
         btn.setBorder(BorderFactory.createCompoundBorder(btn.getBorder(), BorderFactory.createEmptyBorder(1, 8, 1, 8)));
         panel.add(temp, BorderLayout.CENTER);
         temp.setLayout(new BorderLayout());
         label.setBorder(BorderFactory.createCompoundBorder(label.getBorder(), BorderFactory.createEmptyBorder(8, 7, 8, 8)));
         temp.add(labelTxt, BorderLayout.WEST);
-        panel.setBackground(myColor);
+        panel.setBackground(color);
         panel.add(btn, BorderLayout.EAST);
         generalPannel.add(panel);
     }
@@ -51,9 +51,9 @@ public class Folder extends Files {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                btn.setBackground(myColor.brighter());
-                panel.setBackground(myColor.brighter());
-                temp.setBackground(myColor.brighter());
+                btn.setBackground(color.brighter());
+                panel.setBackground(color.brighter());
+                temp.setBackground(color.brighter());
             }
 
             @Override

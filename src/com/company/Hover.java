@@ -10,9 +10,10 @@ import java.awt.event.MouseEvent;
 public class Hover extends MouseAdapter {
 
     private JTextField textField;
-
-    public Hover(JTextField textField) {
+    private Color color ;
+    public Hover(JTextField textField , Color color) {
         this.textField = textField;
+        this.color = color ;
     }
 
     @Override
@@ -24,7 +25,7 @@ public class Hover extends MouseAdapter {
     @Override
     public void mouseExited(MouseEvent e) {
         super.mouseExited(e);
-        textField.setForeground(new Color(255, 255, 255));
+        textField.setForeground(color);
     }
 
     @Override

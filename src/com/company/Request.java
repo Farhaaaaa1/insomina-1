@@ -16,14 +16,16 @@ public class Request extends Files {
     JPanel innerFolders = new JPanel();
     public JPanel panel = new JPanel();
     JPanel temp = new JPanel();
-    Image[] icons = {changSize(new ImageIcon("src/close.png"), 14, 14), changSize(new ImageIcon("src/open.png"), 14, 14)};
+    Image[] icons = {changSize(new ImageIcon("src/del.png"), 20, 14), changSize(new ImageIcon("src/get.png"), 14, 14),
+            changSize(new ImageIcon("src/patc.png"), 14, 14),changSize(new ImageIcon("src/post.png"), 14, 14),
+            changSize(new ImageIcon("src/put.png"), 14, 14)};
     LinkedList<Files> myFiles = new LinkedList<>();
     Color color = new Color(0x2D2D2D);
 
     public Request(LeftPanel leftPanel, String txt) {
         super(leftPanel);
         panel.setVisible(true);
-        label = new JLabel(new ImageIcon(icons[0]));
+        label = new JLabel(new ImageIcon(icons[leftPanel.kind]));
         label.setBackground(color);
         labelTxt = new JLabel(txt);
         labelTxt.setFont(new Font("hell",Font.PLAIN,11));
@@ -33,14 +35,14 @@ public class Request extends Files {
         panel.setLayout(new BorderLayout());
         panel.add(label, BorderLayout.WEST);
         addActions(btn);
-        innerFolders.setBackground(myColor);
+        innerFolders.setBackground(color);
         temp.setBackground(color);
         btn.setBorder(BorderFactory.createCompoundBorder(btn.getBorder(), BorderFactory.createEmptyBorder(1, 8, 1, 8)));
         panel.add(temp, BorderLayout.CENTER);
         temp.setLayout(new BorderLayout());
         label.setBorder(BorderFactory.createCompoundBorder(label.getBorder(), BorderFactory.createEmptyBorder(8, 7, 8, 8)));
         temp.add(labelTxt, BorderLayout.WEST);
-        panel.setBackground(myColor);
+        panel.setBackground(color);
         panel.add(btn, BorderLayout.EAST);
         generalPannel.add(panel);
     }
