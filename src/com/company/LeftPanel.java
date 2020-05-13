@@ -14,10 +14,9 @@ public class LeftPanel extends JPanel {
     JPanel req = new JPanel();
     String requestTxt;
     String folderTxt;
-    public int kind;
     boolean a = true;
     JPanel p = new JPanel();
-
+    Insomina frame;
     private class InsomButton {
         public InsomButton() {
             prepareInsomniaButton(mb);
@@ -40,6 +39,7 @@ public class LeftPanel extends JPanel {
     }
 
     public LeftPanel(Insomina frame) {
+        this.frame = frame ;
         setLayout(new BorderLayout());
         JPanel temp = new JPanel();
         temp.setBackground(Color.RED);

@@ -9,28 +9,29 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
-
 public class Request extends Files {
     JLabel label;
+    int kind;
     JLabel labelTxt;
     JPanel innerFolders = new JPanel();
     public JPanel panel = new JPanel();
     JPanel temp = new JPanel();
-    Image[] icons = {changSize(new ImageIcon("src/del.png"), 20, 14), changSize(new ImageIcon("src/get.png"), 14, 14),
-            changSize(new ImageIcon("src/patc.png"), 14, 14),changSize(new ImageIcon("src/post.png"), 14, 14),
-            changSize(new ImageIcon("src/put.png"), 14, 14)};
+    Image[] icons = {changSize(new ImageIcon("src/del.png"), 23, 14), changSize(new ImageIcon("src/get.png"), 23, 14),
+            changSize(new ImageIcon("src/post.png"), 23, 14), changSize(new ImageIcon("src/put.png"), 23, 14),
+            changSize(new ImageIcon("src/patc.png"), 23, 14)};
     LinkedList<Files> myFiles = new LinkedList<>();
-    Color color = new Color(0x2D2D2D);
-
-    public Request(LeftPanel leftPanel, String txt) {
+    Color color;
+    public Request(LeftPanel leftPanel, String txt, int kind, Color color) {
         super(leftPanel);
+        this.kind = kind;
+        this.color = color;
         panel.setVisible(true);
-        label = new JLabel(new ImageIcon(icons[leftPanel.kind]));
+        label = new JLabel(new ImageIcon(icons[kind]));
         label.setBackground(color);
         labelTxt = new JLabel(txt);
-        labelTxt.setFont(new Font("hell",Font.PLAIN,11));
+        labelTxt.setFont(new Font("hell", Font.PLAIN, 11));
         labelTxt.setForeground(Color.WHITE);
-        JButton btn = new JButton(new ImageIcon("src/down1.png"));
+        JButton btn = new JButton(new ImageIcon(changSize(new ImageIcon("src/Garbage.png"), 11, 13)));
         comouflage(btn, color);
         panel.setLayout(new BorderLayout());
         panel.add(label, BorderLayout.WEST);
@@ -53,9 +54,9 @@ public class Request extends Files {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                btn.setBackground(myColor.brighter());
-                panel.setBackground(myColor.brighter());
-                temp.setBackground(myColor.brighter());
+                btn.setBackground(new Color(0x514822));
+                panel.setBackground(new Color(0x514822));
+                temp.setBackground(new Color(0x514822));
             }
 
             @Override
@@ -80,9 +81,9 @@ public class Request extends Files {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                btn.setBackground(color.brighter());
-                panel.setBackground(color.brighter());
-                temp.setBackground(color.brighter());
+                btn.setBackground(new Color(0x514822));
+                panel.setBackground(new Color(0x514822));
+                temp.setBackground(new Color(0x514822));
             }
 
             @Override

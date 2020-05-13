@@ -12,7 +12,6 @@ public class MiddlePanel extends JPanel {
     Color colorr;
     Boolean isFirst = true;
     JPanel upBar = new JPanel();
-    JPanel midBar = new JPanel();
     JPopupMenu popupMenu = new JPopupMenu();
 
     public MiddlePanel(Insomina frame) {
@@ -26,7 +25,7 @@ public class MiddlePanel extends JPanel {
         setSendBtn(send);
         setCb(new Color(0xD4D4D4), "option");
         cb.setBorder(BorderFactory.createCompoundBorder(cb.getBorder(), BorderFactory.createEmptyBorder(0, -20, 0, 0)));
-        send.setBorder(BorderFactory.createCompoundBorder(send.getBorder(), BorderFactory.createEmptyBorder(0, 5, 0, 0)));
+        send.setBorder(BorderFactory.createCompoundBorder(send.getBorder(), BorderFactory.createEmptyBorder(0, 15, 0, 0)));
         setPopupMenu();
         upBar.add(Box.createRigidArea(new Dimension(5, 45)));
         upBar.add(textField, BorderLayout.CENTER);
@@ -54,10 +53,9 @@ public class MiddlePanel extends JPanel {
 
     public void setSendBtn(JLabel btn) {
         btn.setPreferredSize(new Dimension(75, 5));
-        btn.setBackground(Color.BLACK);
+        btn.setBackground(new Color(0xE3E3E3));
         btn.setFont(new Font("WTF", Font.LAYOUT_NO_LIMIT_CONTEXT, 15));
         btn.setOpaque(true);
-       //btn.setBorderPainted(false);
         btn.setEnabled(false);
     }
 
@@ -82,7 +80,7 @@ public class MiddlePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 text = get.getText();
-                colorr = new Color(0x6E2284);
+                colorr = new Color(0x1D3284);
                 setCb(colorr, text);
                 upBar.updateUI();
                 updateUI();
@@ -94,7 +92,7 @@ public class MiddlePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 text = post.getText();
-                colorr = new Color(0x50833F);
+                colorr = new Color(0x641183);
                 setCb(colorr, text);
                 upBar.updateUI();
                 updateUI();
@@ -106,7 +104,7 @@ public class MiddlePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 text = put.getText();
-                colorr = new Color(0xA95020);
+                colorr = new Color(0x50833F);
                 setCb(colorr, text);
                 upBar.updateUI();
                 updateUI();
@@ -118,7 +116,7 @@ public class MiddlePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 text = pats.getText();
-                colorr = new Color(0xB5A648);
+                colorr = new Color(0xBE501F);
                 setCb(colorr, text);
                 upBar.updateUI();
                 updateUI();
@@ -128,10 +126,10 @@ public class MiddlePanel extends JPanel {
 
         if (isFirst) {
             addToPup(del, new Color(0x9A252A));
-            addToPup(get, new Color(0x6E2284));
-            addToPup(post, new Color(0x50833F));
-            addToPup(put, new Color(0xA95020));
-            addToPup(pats, new Color(0xB5A648));
+            addToPup(get, new Color(0x1D3284));
+            addToPup(post, new Color(0x641183));
+            addToPup(put, new Color(0x50833F));
+            addToPup(pats, new Color(0xBE501F));
 
             isFirst = false;
         }

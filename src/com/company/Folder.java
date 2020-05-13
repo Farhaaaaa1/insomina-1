@@ -4,30 +4,33 @@ import javax.swing.*;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.LinkedList;
 
 public class Folder extends Files {
     JLabel label;
     String openOrNot = "close";
     JLabel labelTxt;
+    Boolean isFirst = true;
     JPanel innerFolders = new JPanel();
     public JPanel panel = new JPanel();
     JPanel temp = new JPanel();
+    JPopupMenu popupMenu = new JPopupMenu();
     Image[] icons = {changSize(new ImageIcon("src/close.png"), 14, 14), changSize(new ImageIcon("src/open.png"), 14, 14)};
     LinkedList<Files> myFiles = new LinkedList<>();
-    Color color = new Color(0x2D2D2D);
+    Insomina Frame ;
+    Color color;
 
-    public Folder(LeftPanel leftPanel, String txt) {
+    public Folder(LeftPanel leftPanel, String txt, Color color) {
         super(leftPanel);
+        this.color = color;
+        this.Frame = Frame ;
+        popUpCreating(popupMenu, this);
         panel.setVisible(true);
         label = new JLabel(new ImageIcon(icons[0]));
         label.setBackground(color);
         labelTxt = new JLabel(txt);
-        labelTxt.setFont(new Font("hell",Font.PLAIN,11));
+        labelTxt.setFont(new Font("hell", Font.PLAIN, 11));
         labelTxt.setForeground(Color.WHITE);
         JButton btn = new JButton(new ImageIcon("src/down1.png"));
         comouflage(btn, color);
@@ -35,6 +38,7 @@ public class Folder extends Files {
         panel.add(label, BorderLayout.WEST);
         addActions(btn);
         innerFolders.setBackground(color);
+        innerFolders.setLayout(new BoxLayout(innerFolders, BoxLayout.Y_AXIS));
         temp.setBackground(color);
         btn.setBorder(BorderFactory.createCompoundBorder(btn.getBorder(), BorderFactory.createEmptyBorder(1, 8, 1, 8)));
         panel.add(temp, BorderLayout.CENTER);
@@ -51,9 +55,9 @@ public class Folder extends Files {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                btn.setBackground(color.brighter());
-                panel.setBackground(color.brighter());
-                temp.setBackground(color.brighter());
+                btn.setBackground(new Color(0x514822));
+                panel.setBackground(new Color(0x514822));
+                temp.setBackground(new Color(0x514822));
             }
 
             @Override
@@ -61,7 +65,7 @@ public class Folder extends Files {
                 super.mouseClicked(e);
                 System.out.println("1");
                 System.out.println("comp");
-                generalPannel.remove(panel);
+                popupMenu.show(btn, e.getX(), e.getY());
                 generalPannel.updateUI();
 
             }
@@ -78,9 +82,9 @@ public class Folder extends Files {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                btn.setBackground(color.brighter());
-                panel.setBackground(color.brighter());
-                temp.setBackground(color.brighter());
+                btn.setBackground(new Color(0x514822));
+                panel.setBackground(new Color(0x514822));
+                temp.setBackground(new Color(0x514822));
             }
 
             @Override
@@ -98,16 +102,73 @@ public class Folder extends Files {
                     generalPannel.add(innerFolders);
                     label.setIcon(new ImageIcon(icons[1]));
                     panel.updateUI();
-                    openOrNot = "open" ;
+                    openOrNot = "open";
                 } else {
                     generalPannel.remove(innerFolders);
                     label.setIcon(new ImageIcon(icons[0]));
                     panel.updateUI();
-                    openOrNot = "close" ;
+                    openOrNot = "close";
                 }
                 generalPannel.updateUI();
 
             }
         });
+    }
+
+    public void popUpCreating(JPopupMenu popupMenu, Folder folder1) {
+        popupMenu.setBackground(new Color(0xFFFAFA));
+        JMenuItem folder = createItem("New Folder");
+        JMenuItem request = createItem("New Request");
+        JMenuItem remove = createItem("Remove");
+        popupMenu.add(folder);
+        folder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String foderName = JOptionPane.showInputDialog("enter your name bro ");
+                folder1.myFiles.add(new Folder(leftPanel, foderName,color.brighter()));
+                addToInner();
+                leftPanel.p.updateUI();
+            }
+        });
+        popupMenu.addSeparator();
+        popupMenu.add(request);
+        request.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String requestName = JOptionPane.showInputDialog("enter your name bro ");
+                String kind = JOptionPane.showInputDialog("type nnumber of what you want " +
+                        "\n1-delete\t2-Get\t3-Post\t4-Put\n5-patc ");
+                folder1.myFiles.add(new Request(leftPanel, requestName,Integer.parseInt(kind)-1,color.brighter()));
+                addToInner();
+                leftPanel.p.updateUI();
+            }
+        });
+        popupMenu.addSeparator();
+        popupMenu.add(remove);
+        remove.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                generalPannel.remove(panel);
+                leftPanel.p.updateUI();
+            }
+        });
+        request.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        isFirst = false;
+    }
+
+    public JMenuItem createItem(String text) {
+        Font menu = new Font("myFont", Font.PLAIN, 12);
+        JMenuItem INSOMNIA = new JMenuItem(text);
+        INSOMNIA.setBorder(BorderFactory.createCompoundBorder(INSOMNIA.getBorder(), BorderFactory.createEmptyBorder(3, 12, 3, 10)));
+        INSOMNIA.setFont(menu);
+        INSOMNIA.setBackground(new Color(0xFFFFFF));
+        return INSOMNIA;
+    }
+
+    public void addToInner() {
+        for (Files f :
+                myFiles) {
+            innerFolders.add(f.generalPannel);
+        }
     }
 }

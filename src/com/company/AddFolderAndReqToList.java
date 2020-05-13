@@ -48,8 +48,8 @@ public class AddFolderAndReqToList extends MouseAdapter {
         folder.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                leftPanel.folderTxt = JOptionPane.showInputDialog("enter your name bro ");
-                leftPanel.files.add(new Folder(leftPanel, leftPanel.folderTxt));
+                leftPanel.folderTxt = JOptionPane.showInputDialog("enter name of the folder  ");
+                leftPanel.files.add(new Folder(leftPanel, leftPanel.folderTxt,new Color(0x2D2D2D)));
                 leftPanel.addToReq();
                 leftPanel.p.updateUI();
             }
@@ -60,13 +60,14 @@ public class AddFolderAndReqToList extends MouseAdapter {
         request.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                leftPanel.requestTxt = JOptionPane.showInputDialog("enter your name bro ");
-
-                leftPanel.files.add(new Request(leftPanel, leftPanel.requestTxt));
+                leftPanel.requestTxt = JOptionPane.showInputDialog("enter name of the request ");
+                String K = JOptionPane.showInputDialog("enter name of the request ");
+                leftPanel.files.add(new Request(leftPanel, leftPanel.requestTxt,Integer.parseInt(K)-1,new Color(0x2D2D2D)));
                 leftPanel.addToReq();
                 leftPanel.p.updateUI();
             }
         });
+        request.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         isFirst = false;
     }
 
