@@ -3,6 +3,9 @@ package com.company;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * our jason panel that include textfield
+ */
 public class JsonPanel extends JPanel {
     Color myColor = new Color(0x2D2D2D);
     public JsonPanel() {

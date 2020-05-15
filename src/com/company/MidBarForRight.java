@@ -8,9 +8,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * creat mid bar of middle panel here
+ * creat mid bar for right panel here
  */
-public class MidBar extends JPanel {
+public class MidBarForRight extends JPanel {
     JPopupMenu popupMenu = new JPopupMenu();
     JButton Body = new JButton();
     JButton Header = new JButton();
@@ -22,25 +22,28 @@ public class MidBar extends JPanel {
     Boolean isFirst = true;
     BinaryPanel binaryPanel = new BinaryPanel();
     JsonPanel jsonPanel = new JsonPanel();
+    JsonPanel jsonPanel1 = new JsonPanel();
+    JsonPanel jsonPanel2 = new JsonPanel();
     Form formPanel = new Form("","");
     Header header = new Header("","");
     JPanel m3 = new JPanel();
+    RightHeader table = new RightHeader();
 
-    public MidBar() {
+    public MidBarForRight() {
         setLayout(new BorderLayout());
         add(upBar, BorderLayout.NORTH);
         add(middleBar, BorderLayout.CENTER);
         middleBar.setLayout(new CardLayout());
         JPanel m = new JPanel();
-        JLabel hand = new JLabel(new ImageIcon("src/hand.png"));
         m.setBackground(new Color(0x282828));
-        m.setLayout(new BorderLayout());
-        m.add(hand,BorderLayout.CENTER);
+        m3.setBackground(new Color(0x282828));
+
         middleBar.add("hell", m);
-        middleBar.add("binary", binaryPanel);
         middleBar.add("JSON", jsonPanel);
-        middleBar.add("form", formPanel);
-        middleBar.add("Head", header);
+        middleBar.add("JSON1", jsonPanel1);
+        middleBar.add("JSON2", jsonPanel2);
+        middleBar.add("Head", table);
+        middleBar.add("hell3", m3);
         createPopUp();
         Body.addMouseListener(new MouseAdapter() {
             @Override
@@ -57,8 +60,8 @@ public class MidBar extends JPanel {
         upBar.add(Auth);
         createButtons(Body, "Body");
         createButtons(Header, "Header");
-        createButtons(Query, "Query");
-        createButtons(Auth, "Auth");
+        createButtons(Query, "Cookie");
+        createButtons(Auth, "Timeline");
         Header.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -68,9 +71,9 @@ public class MidBar extends JPanel {
     }
 
     /**
-     * here we creat all the buttons
-     * @param button our aim buttons
-     * @param text text of it
+     * creat or costomize our button
+     * @param button our aim button
+     * @param text text that will be appred on it
      */
     public void createButtons(JButton button, String text) {
         button.setBackground(color);
@@ -80,21 +83,21 @@ public class MidBar extends JPanel {
     }
 
     /**
-     * we creat pop up here
-     * with all kind of details
+     * creat our pop up here
      */
     public void createPopUp() {
         this.setBackground(new Color(0xFFFAFA));
         Font title = new Font("myFont", Font.ITALIC, 10);
         Font menu = new Font("myFont", Font.PLAIN, 12);
         popupMenu.setBorder(BorderFactory.createCompoundBorder(this.getBorder(), BorderFactory.createEmptyBorder(3, 0, 0, -4)));
-        JMenuItem INSOMNIA = new JMenuItem("STRUCTURED  _____________________________");
+        JMenuItem INSOMNIA = new JMenuItem("Priview Mode  _____________________________");
         INSOMNIA.setBorder(BorderFactory.createCompoundBorder(INSOMNIA.getBorder(), BorderFactory.createEmptyBorder(3, 2, 3, 0)));
         INSOMNIA.setFont(title);
         INSOMNIA.setBackground(new Color(0xFFFFFF));
         popupMenu.add(INSOMNIA);
         INSOMNIA.setEnabled(false);
-        JMenuItem form = new JMenuItem("FORM");
+
+        JMenuItem form = new JMenuItem("RAW");
         form.setBorder(BorderFactory.createCompoundBorder(form.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
         form.setFont(menu);
         form.setBackground(new Color(0xFFFFFF));
@@ -103,18 +106,11 @@ public class MidBar extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Body.setText(form.getText());
-                ((CardLayout) middleBar.getLayout()).show(middleBar, "form");
+                ((CardLayout) middleBar.getLayout()).show(middleBar, "JSON");
 
             }
         });
 
-
-        JMenuItem INSOMNIA1 = new JMenuItem("TEXT  _____________________________");
-        INSOMNIA1.setBorder(BorderFactory.createCompoundBorder(INSOMNIA1.getBorder(), BorderFactory.createEmptyBorder(3, 2, 3, 0)));
-        INSOMNIA1.setFont(title);
-        INSOMNIA1.setBackground(new Color(0xFFFFFF));
-        popupMenu.add(INSOMNIA1);
-        INSOMNIA1.setEnabled(false);
         JMenuItem json = new JMenuItem("JSON");
         json.setBorder(BorderFactory.createCompoundBorder(json.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
         json.setFont(menu);
@@ -124,20 +120,11 @@ public class MidBar extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Body.setText(json.getText());
-                ((CardLayout) middleBar.getLayout()).show(middleBar, "JSON");
+                ((CardLayout) middleBar.getLayout()).show(middleBar, "JSON1");
             }
 
         });
-
-
-        JMenuItem INSOMNIA2 = new JMenuItem("OTHER  _____________________________");
-        INSOMNIA2.setBorder(BorderFactory.createCompoundBorder(INSOMNIA2.getBorder(), BorderFactory.createEmptyBorder(3, 2, 3, 0)));
-        INSOMNIA2.setFont(title);
-        INSOMNIA2.setBackground(new Color(0xFFFFFF));
-        popupMenu.add(INSOMNIA2);
-        INSOMNIA2.setEnabled(false);
-
-        JMenuItem binary = new JMenuItem("BINARY");
+        JMenuItem binary = new JMenuItem("MESSEGE");
         binary.setBorder(BorderFactory.createCompoundBorder(binary.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
         binary.setFont(menu);
         binary.setBackground(new Color(0xFFFFFF));
@@ -146,7 +133,7 @@ public class MidBar extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Body.setText(binary.getText());
-                ((CardLayout) middleBar.getLayout()).show(middleBar, "binary");
+                ((CardLayout) middleBar.getLayout()).show(middleBar, "JSON2");
             }
         });
 

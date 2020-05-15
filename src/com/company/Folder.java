@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.LinkedList;
 
+/**
+ *creat folders here
+ */
 public class Folder extends Files {
     JLabel label;
     String openOrNot = "close";
@@ -50,6 +53,10 @@ public class Folder extends Files {
         generalPannel.add(panel);
     }
 
+    /**
+     * add all actions for button
+     * @param btn
+     */
     public void addActions(JButton btn) {
         btn.addMouseListener(new MouseAdapter() {
             @Override
@@ -115,6 +122,9 @@ public class Folder extends Files {
         });
     }
 
+    /**
+     * creat pop up here
+     */
     public void popUpCreating(JPopupMenu popupMenu, Folder folder1) {
         popupMenu.setBackground(new Color(0xFFFAFA));
         JMenuItem folder = createItem("New Folder");
@@ -136,8 +146,12 @@ public class Folder extends Files {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String requestName = JOptionPane.showInputDialog("enter your name bro ");
-                String kind = JOptionPane.showInputDialog("type nnumber of what you want " +
-                        "\n1-delete\t2-Get\t3-Post\t4-Put\n5-patc ");
+                String kind ;
+                do {
+                    kind = JOptionPane.showInputDialog("type nnumber of what you want " +
+                            "\n1-delete\t2-Get\t3-Post\t4-Put\n5-patc ");
+                } while (!(kind.equals("2")||kind.equals("1")||kind.equals("3")||kind.equals("4")||kind.equals("5")));
+
                 folder1.myFiles.add(new Request(leftPanel, requestName,Integer.parseInt(kind)-1,color.brighter()));
                 addToInner();
                 leftPanel.p.updateUI();
@@ -165,6 +179,9 @@ public class Folder extends Files {
         return INSOMNIA;
     }
 
+    /**
+     * here we add item to folders
+     */
     public void addToInner() {
         for (Files f :
                 myFiles) {

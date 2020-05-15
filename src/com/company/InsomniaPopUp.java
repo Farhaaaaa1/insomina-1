@@ -7,6 +7,10 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * here we crear our nice pop up LOL
+ * creat each of item one by one
+ */
 public class InsomniaPopUp extends JPopupMenu {
 
     public InsomniaPopUp() {

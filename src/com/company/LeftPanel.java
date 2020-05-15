@@ -7,7 +7,11 @@ import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
-
+/**
+ * all thing here are about middle panel
+ * wich have 1,2 classes
+ * and also some component
+ */
 public class LeftPanel extends JPanel {
     JButton mb = new JButton();
     public LinkedList<Files> files = new LinkedList<>();
@@ -38,6 +42,10 @@ public class LeftPanel extends JPanel {
         }
     }
 
+    /**
+     * createleft pannel here
+     * @param frame Insomnia frame (base)
+     */
     public LeftPanel(Insomina frame) {
         this.frame = frame ;
         setLayout(new BorderLayout());
@@ -61,15 +69,21 @@ public class LeftPanel extends JPanel {
         temp.add(req, BorderLayout.NORTH);
         JPanel temp1 = new JPanel();
         temp.add(temp1, BorderLayout.CENTER);
+        temp.setBackground(new Color(0x3E3E3E));
+        temp1.setBackground(new Color(0x3E3E3E));
         temp1.setLayout(new BorderLayout());
         temp1.add(p, BorderLayout.NORTH);
         p.updateUI();
         addToReq();
         repaint();
         revalidate();
+        setBackground(new Color(0x3E3E3E));
         new InsomButton();
     }
 
+    /**
+     * show file with "p" jpanel
+     */
     public void addToReq() {
         for (Files F :
                 files) {
@@ -80,10 +94,10 @@ public class LeftPanel extends JPanel {
         revalidate();
     }
 
-    public void addList() {
-
-    }
-
+    /**
+     * here we create search area
+     * @param txt
+     */
     public void prepareText(JTextField txt) {
         txt.setPreferredSize(new Dimension(110, 30));
         txt.setBorder(BorderFactory.createCompoundBorder(txt.getBorder(), BorderFactory.createEmptyBorder(0, 3, 0, 40)));
@@ -104,9 +118,12 @@ public class LeftPanel extends JPanel {
         });
         revalidate();
         repaint();
-
     }
 
+    /**
+     * create insomnia button wich is top right
+     * @param mb our aim button
+     */
     public void prepareInsomniaButton(JButton mb) {
         JLabel down = new JLabel(new ImageIcon("src/down1.png"));
         mb.setLayout(new BorderLayout());
@@ -119,6 +136,11 @@ public class LeftPanel extends JPanel {
         mb.add(Box.createRigidArea(new Dimension(5, 35)));
     }
 
+    /**
+     * comoflage button with their apce
+     * @param btn our aim button
+     * @param color color of buttons space
+     */
     public void comouflage(JButton btn, Color color) {
         btn.setPreferredSize(new Dimension(38, 5));
         btn.setBackground(color);

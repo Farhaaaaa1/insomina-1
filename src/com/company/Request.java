@@ -9,6 +9,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
+
+/**
+ * creat request here
+ * and also give them detailes
+ */
 public class Request extends Files {
     JLabel label;
     int kind;
@@ -16,6 +21,7 @@ public class Request extends Files {
     JPanel innerFolders = new JPanel();
     public JPanel panel = new JPanel();
     JPanel temp = new JPanel();
+    // image of kinds of requests
     Image[] icons = {changSize(new ImageIcon("src/del.png"), 23, 14), changSize(new ImageIcon("src/get.png"), 23, 14),
             changSize(new ImageIcon("src/post.png"), 23, 14), changSize(new ImageIcon("src/put.png"), 23, 14),
             changSize(new ImageIcon("src/patc.png"), 23, 14)};
@@ -47,8 +53,11 @@ public class Request extends Files {
         panel.add(btn, BorderLayout.EAST);
         generalPannel.add(panel);
     }
-
-
+    /**
+     * @param btn out aim button
+     * add action to button
+     *   we implemet  all the actions on what we want here
+     */
     public void addActions(JButton btn) {
         btn.addMouseListener(new MouseAdapter() {
             @Override

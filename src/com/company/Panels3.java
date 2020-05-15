@@ -3,6 +3,10 @@ package com.company;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * here is one of our most important classes
+ * cuz we conbain all 3 pannels to getter here
+ */
 public class Panels3  extends JPanel {
     public Panels3(Insomina frame) {
         BorderLayout layout = new BorderLayout();

@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * abstract class for fiels
+ */
 public abstract class Files  {
 
     public JPanel generalPannel = new JPanel();
@@ -24,12 +27,7 @@ public abstract class Files  {
 
             }
 
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                System.out.println("1");
 
-            }
 
             @Override
             public void mouseExited(MouseEvent e) {
@@ -42,11 +40,21 @@ public abstract class Files  {
         });
     }
 
+    /**
+     * method to change size of the image
+     * @return our image at preferrd size
+     */
     protected Image changSize(ImageIcon icon, int x, int y) {
         JLabel a = new JLabel();
         return icon.getImage().getScaledInstance(x, y, Image.SCALE_DEFAULT);
 
     }
+
+    /**
+     *
+     * @param btn our aim button
+     * @param color color of space
+     */
     public void comouflage(JButton btn, Color color) {
         btn.setPreferredSize(new Dimension(38, 5));
         btn.setBackground(color);

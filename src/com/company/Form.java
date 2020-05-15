@@ -10,10 +10,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * in this class we will create headers that we
+ * in this class we will create sth like headers that we
  * put into the headers panel in middle panel .
  */
-public class Header extends JPanel {
+public class Form extends JPanel {
     String header = "  ";
     String value = "   ";
     int count = 0;
@@ -21,7 +21,7 @@ public class Header extends JPanel {
     private Boolean isAble = false;
     JPanel general = new JPanel();
 
-    public Header(String first, String sec) {
+    public Form(String first, String sec) {
         general.setLayout(new BoxLayout(general, BoxLayout.Y_AXIS));
         general.add(create());
         add(general);
@@ -36,11 +36,6 @@ public class Header extends JPanel {
         return isAble;
     }
 
-    /**
-     * we create the header for middle panel here
-     * and don LOL :)))
-     * @return jpanel that contain all of headers
-     */
     public JPanel create() {
         JPanel panel = new JPanel();
         JCheckBox ch = new JCheckBox();
@@ -62,7 +57,7 @@ public class Header extends JPanel {
         values.setBackground(new Color(0x282828));
         values.setBorder(BorderFactory.createCompoundBorder(values.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
         addHover(values, "value...");
-        addHover(headers, "header...");
+        addHover(headers, "name...");
         panel.add(values);
         ch.setBackground(new Color(0x282828));
         panel.add(ch);
@@ -101,7 +96,7 @@ public class Header extends JPanel {
             public void focusGained(FocusEvent e) {
                 String newText = headers.getText().replaceAll(" ", "") ;
                 String newText1 = values.getText().replaceAll(" ", "") ;
-                newText = newText.replaceAll("header...","");
+                newText = newText.replaceAll("name...","");
                 newText1 = newText1.replaceAll("value...","");
                 if (newText.equals("")&&newText1.equals(""))
                     general.add(create());
@@ -115,7 +110,7 @@ public class Header extends JPanel {
                 super.focusGained(e);
                 String newText = headers.getText().replaceAll(" ", "") ;
                 String newText1 = values.getText().replaceAll(" ", "") ;
-                newText = newText.replaceAll("header...","");
+                newText = newText.replaceAll("name...","");
                 newText1 = newText1.replaceAll("value...","");
                 if (newText.equals("")&&newText1.equals(""))
                     general.add(create());
@@ -130,9 +125,10 @@ public class Header extends JPanel {
     }
 
     /**
-     * we add hover actiom here
-     * to
-     * all compomnets
+     * with this method we put
+     * hover action on them
+     * @param txt our textfield
+     * @param defaultt whats our default text
      */
     public void addHover(JTextField txt, String defaultt) {
         txt.setText(defaultt);

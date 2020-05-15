@@ -61,8 +61,13 @@ public class AddFolderAndReqToList extends MouseAdapter {
             @Override
             public void actionPerformed(ActionEvent e) {
                 leftPanel.requestTxt = JOptionPane.showInputDialog("enter name of the request ");
-                String K = JOptionPane.showInputDialog("enter name of the request ");
-                leftPanel.files.add(new Request(leftPanel, leftPanel.requestTxt,Integer.parseInt(K)-1,new Color(0x2D2D2D)));
+                String kind ;
+                do {
+                    kind = JOptionPane.showInputDialog("type nnumber of what you want " +
+                            "\n1-delete\t2-Get\t3-Post\t4-Put\n5-patc ");
+                } while (!(kind.equals("2")||kind.equals("1")||kind.equals("3")||kind.equals("4")||kind.equals("5")));
+
+                leftPanel.files.add(new Request(leftPanel, leftPanel.requestTxt,Integer.parseInt(kind)-1,new Color(0x2D2D2D)));
                 leftPanel.addToReq();
                 leftPanel.p.updateUI();
             }

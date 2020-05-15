@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * all thing here are about middle panel
+ * wich have 3,4 class
+ */
 public class MiddlePanel extends JPanel {
     JButton cb = new JButton();
     JLabel send = new JLabel("SEND");
@@ -14,6 +18,10 @@ public class MiddlePanel extends JPanel {
     JPanel upBar = new JPanel();
     JPopupMenu popupMenu = new JPopupMenu();
 
+    /**
+     * create base of the middle pannel
+     * @param frame our main frame
+     */
     public MiddlePanel(Insomina frame) {
         setLayout(new BorderLayout());
         add(upBar, BorderLayout.NORTH);
@@ -34,6 +42,11 @@ public class MiddlePanel extends JPanel {
 
     }
 
+    /**
+     * with this method we prepare CB button
+     * @param c color that we want to colord the button with
+     * @param s Text that we want to put it in this component
+     */
     public void setCb(Color c, String s) {
         cb.setPreferredSize(new Dimension(70, 5));
         cb.setFont(new Font("WTD", Font.LAYOUT_NO_LIMIT_CONTEXT, 15));
@@ -51,6 +64,10 @@ public class MiddlePanel extends JPanel {
         });
     }
 
+    /**
+     *  with this method we prepare CB button
+     * @param btn labale that we want to costumize it
+     */
     public void setSendBtn(JLabel btn) {
         btn.setPreferredSize(new Dimension(75, 5));
         btn.setBackground(new Color(0xE3E3E3));
@@ -59,6 +76,9 @@ public class MiddlePanel extends JPanel {
         btn.setEnabled(false);
     }
 
+    /**
+     * finally we will creat popUpmenu with all details
+     */
     public void setPopupMenu() {
         Color color = Color.WHITE;
 
@@ -137,6 +157,11 @@ public class MiddlePanel extends JPanel {
         System.out.println("3");
     }
 
+    /**
+     * add item to pop up
+     * @param a what we want to add
+     * @param col color of item
+     */
     public void addToPup(JMenuItem a, Color col) {
         popupMenu.add(a);
         a.setForeground(col);
@@ -144,6 +169,11 @@ public class MiddlePanel extends JPanel {
         a.setFont(new Font("hell", Font.ITALIC, 12));
     }
 
+    /**
+     * we will prepare text field hare
+     * with all details
+     * @param txt our text field
+     */
     public void prepareText(JTextField txt) {
         txt.setPreferredSize(new Dimension(110, 45));
         txt.setBorder(BorderFactory.createCompoundBorder(upBar.getBorder(), BorderFactory.createEmptyBorder(8, 3, 8, 10)));

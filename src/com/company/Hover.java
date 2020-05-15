@@ -7,6 +7,9 @@ import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * create hover action
+ */
 public class Hover extends MouseAdapter {
 
     private JTextField textField;
