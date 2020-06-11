@@ -1,60 +1,60 @@
 package com.company;
 
+import com.oracle.tools.packager.windows.WinServiceBundler;
+
 import javax.swing.*;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.LinkedList;
 
 /**
- *creat folders here
+ * creat folders here
  */
 public class Folder extends Files {
-    JLabel label;
+    JLabel openCloseLabel;
+    Insomina insomina;
     String openOrNot = "close";
     JLabel labelTxt;
     Boolean isFirst = true;
     JPanel innerFolders = new JPanel();
-    public JPanel panel = new JPanel();
+    JPanel secondPanel = new JPanel();
     JPanel temp = new JPanel();
     JPopupMenu popupMenu = new JPopupMenu();
     Image[] icons = {changSize(new ImageIcon("src/close.png"), 14, 14), changSize(new ImageIcon("src/open.png"), 14, 14)};
     LinkedList<Files> myFiles = new LinkedList<>();
-    Insomina Frame ;
     Color color;
 
-    public Folder(LeftPanel leftPanel, String txt, Color color) {
+    public Folder(LeftPanel leftPanel, String txt, Color color, Insomina insomina) {
         super(leftPanel);
         this.color = color;
-        this.Frame = Frame ;
+        this.insomina = insomina;
         popUpCreating(popupMenu, this);
-        panel.setVisible(true);
-        label = new JLabel(new ImageIcon(icons[0]));
-        label.setBackground(color);
+        openCloseLabel = new JLabel(new ImageIcon(icons[0]));
+        openCloseLabel.setBackground(color);
         labelTxt = new JLabel(txt);
         labelTxt.setFont(new Font("hell", Font.PLAIN, 11));
         labelTxt.setForeground(Color.WHITE);
         JButton btn = new JButton(new ImageIcon("src/down1.png"));
         comouflage(btn, color);
-        panel.setLayout(new BorderLayout());
-        panel.add(label, BorderLayout.WEST);
+        secondPanel.setLayout(new BorderLayout());
+        secondPanel.add(openCloseLabel, BorderLayout.WEST);
         addActions(btn);
-        innerFolders.setBackground(color);
+        innerFolders.setBackground(myColor);
         innerFolders.setLayout(new BoxLayout(innerFolders, BoxLayout.Y_AXIS));
         temp.setBackground(color);
         btn.setBorder(BorderFactory.createCompoundBorder(btn.getBorder(), BorderFactory.createEmptyBorder(1, 8, 1, 8)));
-        panel.add(temp, BorderLayout.CENTER);
+        secondPanel.add(temp, BorderLayout.CENTER);
         temp.setLayout(new BorderLayout());
-        label.setBorder(BorderFactory.createCompoundBorder(label.getBorder(), BorderFactory.createEmptyBorder(8, 7, 8, 8)));
+        openCloseLabel.setBorder(BorderFactory.createCompoundBorder(openCloseLabel.getBorder(), BorderFactory.createEmptyBorder(8, 7, 8, 8)));
         temp.add(labelTxt, BorderLayout.WEST);
-        panel.setBackground(color);
-        panel.add(btn, BorderLayout.EAST);
-        generalPannel.add(panel);
+        secondPanel.setBackground(color);
+        secondPanel.add(btn, BorderLayout.EAST);
+        generalPanel.add(secondPanel);
     }
 
     /**
      * add all actions for button
+     *
      * @param btn
      */
     public void addActions(JButton btn) {
@@ -63,7 +63,7 @@ public class Folder extends Files {
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 btn.setBackground(new Color(0x514822));
-                panel.setBackground(new Color(0x514822));
+                secondPanel.setBackground(new Color(0x514822));
                 temp.setBackground(new Color(0x514822));
             }
 
@@ -73,31 +73,31 @@ public class Folder extends Files {
                 System.out.println("1");
                 System.out.println("comp");
                 popupMenu.show(btn, e.getX(), e.getY());
-                generalPannel.updateUI();
+                generalPanel.updateUI();
 
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                panel.setBackground(color);
+                secondPanel.setBackground(color);
                 temp.setBackground(color);
                 btn.setBackground(color);
             }
         });
-        panel.addMouseListener(new MouseAdapter() {
+        secondPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
                 btn.setBackground(new Color(0x514822));
-                panel.setBackground(new Color(0x514822));
+                secondPanel.setBackground(new Color(0x514822));
                 temp.setBackground(new Color(0x514822));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                panel.setBackground(color);
+                secondPanel.setBackground(color);
                 temp.setBackground(color);
                 btn.setBackground(color);
             }
@@ -106,18 +106,17 @@ public class Folder extends Files {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (openOrNot.equals("close")) {
-                    generalPannel.add(innerFolders);
-                    label.setIcon(new ImageIcon(icons[1]));
-                    panel.updateUI();
+                    generalPanel.add(innerFolders);
+                    openCloseLabel.setIcon(new ImageIcon(icons[1]));
+                    secondPanel.updateUI();
                     openOrNot = "open";
                 } else {
-                    generalPannel.remove(innerFolders);
-                    label.setIcon(new ImageIcon(icons[0]));
-                    panel.updateUI();
+                    generalPanel.remove(innerFolders);
+                    openCloseLabel.setIcon(new ImageIcon(icons[0]));
+                    secondPanel.updateUI();
                     openOrNot = "close";
                 }
-                generalPannel.updateUI();
-
+                generalPanel.updateUI();
             }
         });
     }
@@ -135,7 +134,7 @@ public class Folder extends Files {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String foderName = JOptionPane.showInputDialog("enter your name bro ");
-                folder1.myFiles.add(new Folder(leftPanel, foderName,color.brighter()));
+                folder1.myFiles.add(new Folder(leftPanel, foderName, color.brighter(), insomina));
                 addToInner();
                 leftPanel.p.updateUI();
             }
@@ -146,13 +145,16 @@ public class Folder extends Files {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String requestName = JOptionPane.showInputDialog("enter your name bro ");
-                String kind ;
+                String kind;
                 do {
                     kind = JOptionPane.showInputDialog("type nnumber of what you want " +
                             "\n1-delete\t2-Get\t3-Post\t4-Put\n5-patc ");
-                } while (!(kind.equals("2")||kind.equals("1")||kind.equals("3")||kind.equals("4")||kind.equals("5")));
-
-                folder1.myFiles.add(new Request(leftPanel, requestName,Integer.parseInt(kind)-1,color.brighter()));
+                } while (!(kind.equals("2") || kind.equals("1") || kind.equals("3") || kind.equals("4") || kind.equals("5")));
+                String noNumber = String.valueOf(System.currentTimeMillis());
+                Request request = new Request(leftPanel, requestName, Integer.parseInt(kind) - 1,
+                        color.brighter(), insomina, noNumber);
+                folder1.innerFolders.add(request.generalPanel);
+                insomina.requestDictionary.put(noNumber,request);
                 addToInner();
                 leftPanel.p.updateUI();
             }
@@ -162,7 +164,8 @@ public class Folder extends Files {
         remove.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                generalPannel.remove(panel);
+                removeFromInner(folder1);
+                generalPanel.remove(secondPanel);
                 leftPanel.p.updateUI();
             }
         });
@@ -185,7 +188,13 @@ public class Folder extends Files {
     public void addToInner() {
         for (Files f :
                 myFiles) {
-            innerFolders.add(f.generalPannel);
+            innerFolders.add(f.generalPanel);
         }
     }
+
+    public void removeFromInner(Files file) {
+        innerFolders.remove(file.generalPanel);
+        myFiles.remove(file);
+    }
+
 }

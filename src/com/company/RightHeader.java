@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * creat the table here
+ * create the table here
  */
 public class RightHeader extends JPanel {
     /**

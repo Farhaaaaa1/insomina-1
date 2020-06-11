@@ -11,10 +11,12 @@ public class AddFolderAndReqToList extends MouseAdapter {
     JPopupMenu popupMenu = new JPopupMenu();
     LeftPanel leftPanel;
     String openOrNot = "Close";
+    Insomina insomina;
 
-    public AddFolderAndReqToList(JButton plus, LeftPanel leftPanel) {
+    public AddFolderAndReqToList(JButton plus, LeftPanel leftPanel, Insomina insomina) {
         this.plus = plus;
         this.leftPanel = leftPanel;
+        this.insomina = insomina;
         color = plus.getBackground();
     }
 
@@ -49,7 +51,7 @@ public class AddFolderAndReqToList extends MouseAdapter {
             @Override
             public void actionPerformed(ActionEvent e) {
                 leftPanel.folderTxt = JOptionPane.showInputDialog("enter name of the folder  ");
-                leftPanel.files.add(new Folder(leftPanel, leftPanel.folderTxt,new Color(0x2D2D2D)));
+                leftPanel.files.add(new Folder(leftPanel, leftPanel.folderTxt, new Color(0x2D2D2D),insomina));
                 leftPanel.addToReq();
                 leftPanel.p.updateUI();
             }
@@ -61,14 +63,16 @@ public class AddFolderAndReqToList extends MouseAdapter {
             @Override
             public void actionPerformed(ActionEvent e) {
                 leftPanel.requestTxt = JOptionPane.showInputDialog("enter name of the request ");
-                String kind ;
+                String kind;
                 do {
                     kind = JOptionPane.showInputDialog("type nnumber of what you want " +
                             "\n1-delete\t2-Get\t3-Post\t4-Put\n5-patc ");
-                } while (!(kind.equals("2")||kind.equals("1")||kind.equals("3")||kind.equals("4")||kind.equals("5")));
-
-                leftPanel.files.add(new Request(leftPanel, leftPanel.requestTxt,Integer.parseInt(kind)-1,new Color(0x2D2D2D)));
+                } while (!(kind.equals("2") || kind.equals("1") || kind.equals("3") || kind.equals("4") || kind.equals("5")));
+                String noNumber = String.valueOf(System.currentTimeMillis());
+                Request request =new Request(leftPanel, leftPanel.requestTxt, Integer.parseInt(kind) - 1, new Color(0x2D2D2D),insomina,noNumber);
+                leftPanel.files.add(request);
                 leftPanel.addToReq();
+                insomina.requestDictionary.put(noNumber,request);
                 leftPanel.p.updateUI();
             }
         });

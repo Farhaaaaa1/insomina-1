@@ -14,24 +14,30 @@ public class MiddlePanel extends JPanel {
     JTextField textField = new JTextField();
     String text = "option";
     Color colorr;
+    MidBar midBar;
     Boolean isFirst = true;
     JPanel upBar = new JPanel();
     JPopupMenu popupMenu = new JPopupMenu();
+    Insomina insomina;
+    Image[] icons = {changSize(new ImageIcon("src/del.png"), 23, 14), changSize(new ImageIcon("src/get.png"), 23, 14),
+            changSize(new ImageIcon("src/post.png"), 23, 14), changSize(new ImageIcon("src/put.png"), 23, 14),
+            changSize(new ImageIcon("src/patc.png"), 27, 14)};
 
     /**
      * create base of the middle pannel
-     * @param frame our main frame
+     *
+     * @param insomina our main frame
      */
-    public MiddlePanel(Insomina frame) {
+    public MiddlePanel(Insomina insomina) {
+        this.insomina = insomina;
         setLayout(new BorderLayout());
         add(upBar, BorderLayout.NORTH);
-        MidBar midBar = new MidBar();
+         midBar = new MidBar(insomina);
         add(midBar, BorderLayout.CENTER);
-
         prepareText(textField);
         upBar.setLayout(new BorderLayout());
         setSendBtn(send);
-        setCb(new Color(0xD4D4D4), "option");
+        setCb(new Color(353432), "hello");
         cb.setBorder(BorderFactory.createCompoundBorder(cb.getBorder(), BorderFactory.createEmptyBorder(0, -20, 0, 0)));
         send.setBorder(BorderFactory.createCompoundBorder(send.getBorder(), BorderFactory.createEmptyBorder(0, 15, 0, 0)));
         setPopupMenu();
@@ -39,22 +45,28 @@ public class MiddlePanel extends JPanel {
         upBar.add(textField, BorderLayout.CENTER);
         upBar.add(cb, BorderLayout.WEST);
         upBar.add(send, BorderLayout.EAST);
-
+        // updateUI();
     }
 
     /**
      * with this method we prepare CB button
+     *
      * @param c color that we want to colord the button with
      * @param s Text that we want to put it in this component
      */
     public void setCb(Color c, String s) {
+        System.out.println(s + "   our string");
         cb.setPreferredSize(new Dimension(70, 5));
         cb.setFont(new Font("WTD", Font.LAYOUT_NO_LIMIT_CONTEXT, 15));
         cb.setOpaque(true);
         cb.setBorderPainted(false);
         cb.setBackground(c);
         cb.setText(s);
+        System.out.println(cb.getText() + "   hala");
         cb.setEnabled(false);
+        upBar.repaint();
+        upBar.revalidate();
+        upBar.updateUI();
         cb.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -65,7 +77,8 @@ public class MiddlePanel extends JPanel {
     }
 
     /**
-     *  with this method we prepare CB button
+     * with this method we prepare CB button
+     *
      * @param btn labale that we want to costumize it
      */
     public void setSendBtn(JLabel btn) {
@@ -77,11 +90,10 @@ public class MiddlePanel extends JPanel {
     }
 
     /**
-     * finally we will creat popUpmenu with all details
+     * finally we will create popUpmenu with all details
      */
     public void setPopupMenu() {
         Color color = Color.WHITE;
-
         JMenuItem del = new JMenuItem("DEL");
         del.setBackground(color);
         del.addActionListener(new ActionListener() {
@@ -90,8 +102,7 @@ public class MiddlePanel extends JPanel {
                 text = del.getText();
                 colorr = new Color(0x9A252A);
                 setCb(colorr, text);
-                upBar.updateUI();
-                updateUI();
+                linkToRequest(0);
             }
         });
         JMenuItem get = new JMenuItem("GET");
@@ -102,8 +113,7 @@ public class MiddlePanel extends JPanel {
                 text = get.getText();
                 colorr = new Color(0x1D3284);
                 setCb(colorr, text);
-                upBar.updateUI();
-                updateUI();
+                linkToRequest(1);
             }
         });
         JMenuItem post = new JMenuItem("POST");
@@ -114,8 +124,7 @@ public class MiddlePanel extends JPanel {
                 text = post.getText();
                 colorr = new Color(0x641183);
                 setCb(colorr, text);
-                upBar.updateUI();
-                updateUI();
+                linkToRequest(2);
             }
         });
         JMenuItem put = new JMenuItem("PUT");
@@ -126,8 +135,7 @@ public class MiddlePanel extends JPanel {
                 text = put.getText();
                 colorr = new Color(0x50833F);
                 setCb(colorr, text);
-                upBar.updateUI();
-                updateUI();
+                linkToRequest(3);
             }
         });
         JMenuItem pats = new JMenuItem("PATC");
@@ -138,8 +146,7 @@ public class MiddlePanel extends JPanel {
                 text = pats.getText();
                 colorr = new Color(0xBE501F);
                 setCb(colorr, text);
-                upBar.updateUI();
-                updateUI();
+                linkToRequest(4);
             }
         });
 
@@ -159,7 +166,8 @@ public class MiddlePanel extends JPanel {
 
     /**
      * add item to pop up
-     * @param a what we want to add
+     *
+     * @param a   what we want to add
      * @param col color of item
      */
     public void addToPup(JMenuItem a, Color col) {
@@ -172,6 +180,7 @@ public class MiddlePanel extends JPanel {
     /**
      * we will prepare text field hare
      * with all details
+     *
      * @param txt our text field
      */
     public void prepareText(JTextField txt) {
@@ -194,6 +203,13 @@ public class MiddlePanel extends JPanel {
         });
         revalidate();
         repaint();
-
+    }
+    public Image changSize(ImageIcon icon, int x, int y) {
+        return icon.getImage().getScaledInstance(x, y, Image.SCALE_DEFAULT);
+    }
+    public void linkToRequest(int kind)
+    {
+        insomina.requestDictionary.get(insomina.key).label.setIcon(new ImageIcon(icons[kind]));
+        insomina.requestDictionary.get(insomina.key).kind=kind;
     }
 }

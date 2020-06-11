@@ -8,146 +8,43 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.LinkedList;
 
 /**
  * in this class we will create headers that we
  * put into the headers panel in middle panel .
  */
 public class Header extends JPanel {
-    String header = "  ";
-    String value = "   ";
-    int count = 0;
-    private JPanel panel = new JPanel();
-    private Boolean isAble = false;
-    JPanel general = new JPanel();
-
-    public Header(String first, String sec) {
-        general.setLayout(new BoxLayout(general, BoxLayout.Y_AXIS));
-        general.add(create());
-        add(general);
-        setBackground(new Color(0x282828));
+    LinkedList <EachCell> CellList = new LinkedList<>();
+    class EachCell extends JPanel {
+        public EachCell() {
+            setLayout(new BorderLayout());
+            JLabel open = new JLabel(new ImageIcon("src/1.png"));
+            JTextField headerTxt = new JTextField();
+            headerTxt.setColumns(20);
+            JTextField valueTxt = new JTextField();
+            add(headerTxt,BorderLayout.EAST);
+            add(valueTxt,BorderLayout.WEST);
+            add(open);
+            setBackground(new Color(43434));
+            this.setBorder(BorderFactory.createCompoundBorder(this.getBorder(), BorderFactory.createEmptyBorder(5, 0, 5, 0)));
+        }
     }
 
-    public JPanel getPanel() {
-        return panel;
-    }
-
-    public Boolean getAble() {
-        return isAble;
-    }
-
-    /**
-     * we create the header for middle panel here
-     * and don LOL :)))
-     * @return jpanel that contain all of headers
-     */
-    public JPanel create() {
-        JPanel panel = new JPanel();
-        JCheckBox ch = new JCheckBox();
-        ch.setFocusable(false);
-        panel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JTextField headers = new JTextField();
-        headers.setText(header);
-        headers.setColumns(10);
-        JLabel garbage = new JLabel(new ImageIcon(new ImageIcon("src/garbage.png").getImage().getScaledInstance(16, 14, Image.SCALE_DEFAULT)));
-        panel.setBorder(BorderFactory.createCompoundBorder(panel.getBorder(), BorderFactory.createEmptyBorder(10, 5, 5, 0)));
-        panel.add(headers);
-        headers.setForeground(new Color(0x8B8B8B));
-        headers.setBackground(new Color(0x282828));
-        headers.setBorder(BorderFactory.createCompoundBorder(headers.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
-        JTextField values = new JTextField();
-        values.setText(value);
-        values.setColumns(10);
-        values.setForeground(new Color(0x8B8B8B));
-        values.setBackground(new Color(0x282828));
-        values.setBorder(BorderFactory.createCompoundBorder(values.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
-        addHover(values, "value...");
-        addHover(headers, "header...");
-        panel.add(values);
-        ch.setBackground(new Color(0x282828));
-        panel.add(ch);
-
-        garbage.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                System.out.println(count);
-                super.mousePressed(e);
-                if (count > 1) {
-                    general.remove(panel);
-                    count--;
-                }
-                general.updateUI();
-                updateUI();
-            }
-        });
-
-        ch.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                if (headers.getBackground().equals(new Color(0x282828))) {
-                    headers.setBackground(new Color(0x6860B4));
-                    values.setBackground(new Color(0x6860B4));
-                    isAble = true;
-                } else {
-                    headers.setBackground(new Color(0x282828));
-                    values.setBackground(new Color(0x282828));
-                    isAble = false;
-                }
-            }
-        });
-        headers.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                String newText = headers.getText().replaceAll(" ", "") ;
-                String newText1 = values.getText().replaceAll(" ", "") ;
-                newText = newText.replaceAll("header...","");
-                newText1 = newText1.replaceAll("value...","");
-                if (newText.equals("")&&newText1.equals(""))
-                    general.add(create());
-                general.updateUI();
-                updateUI();
-            }
-        });
-        values.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                super.focusGained(e);
-                String newText = headers.getText().replaceAll(" ", "") ;
-                String newText1 = values.getText().replaceAll(" ", "") ;
-                newText = newText.replaceAll("header...","");
-                newText1 = newText1.replaceAll("value...","");
-                if (newText.equals("")&&newText1.equals(""))
-                    general.add(create());
-                general.updateUI();
-                updateUI();
-            }
-        });
-        panel.add(garbage);
-        panel.setBackground(new Color(0x282828));
-        count++;
-        return panel;
-    }
-
-    /**
-     * we add hover actiom here
-     * to
-     * all compomnets
-     */
-    public void addHover(JTextField txt, String defaultt) {
-        txt.setText(defaultt);
-        txt.addMouseListener(new Hover(txt, Color.WHITE));
-        revalidate();
-        repaint();
-        txt.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusLost(FocusEvent e) {
-                super.focusLost(e);
-                if (txt.getText().equals(""))
-                    txt.setText(defaultt);
-            }
-        });
-        revalidate();
-        repaint();
+    public Header() {
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        EachCell hello = new EachCell();
+        EachCell hello1 = new EachCell();
+        EachCell hello2 = new EachCell();
+        JPanel temp = new JPanel();
+        setLayout(new BorderLayout());
+        add(temp, BorderLayout.NORTH);
+        temp.setLayout(new BoxLayout(temp, BoxLayout.Y_AXIS));
+        hello1.setBackground(new Color(32453567));
+        hello2.setBackground(new Color(153567));
+        temp.add(hello1);
+        temp.add(hello);
+        temp.add(hello2);
+        temp.setBackground(new Color(0x57D42C));
     }
 }

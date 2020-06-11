@@ -1,11 +1,9 @@
 package com.company;
 
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIInlineBinaryData;
+
 import javax.swing.*;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
@@ -15,21 +13,28 @@ import java.util.LinkedList;
  * and also give them detailes
  */
 public class Request extends Files {
+    Insomina insomina;
     JLabel label;
     int kind;
     JLabel labelTxt;
-    JPanel innerFolders = new JPanel();
-    public JPanel panel = new JPanel();
+    String noNumber;
+    JPanel header = new JPanel();
+    JPanel panel = new JPanel();
     JPanel temp = new JPanel();
     // image of kinds of requests
-    Image[] icons = {changSize(new ImageIcon("src/del.png"), 23, 14), changSize(new ImageIcon("src/get.png"), 23, 14),
-            changSize(new ImageIcon("src/post.png"), 23, 14), changSize(new ImageIcon("src/put.png"), 23, 14),
-            changSize(new ImageIcon("src/patc.png"), 23, 14)};
-    LinkedList<Files> myFiles = new LinkedList<>();
+    int x = 27;
+    int y = 14;
+    Image[] icons = {changSize(new ImageIcon("src/del.png"), x-2, y), changSize(new ImageIcon("src/get.png"), x-2, y),
+            changSize(new ImageIcon("src/post.png"), x+5, y), changSize(new ImageIcon("src/put.png"), x, y),
+            changSize(new ImageIcon("src/patc.png"), 27, y)};
     Color color;
-    public Request(LeftPanel leftPanel, String txt, int kind, Color color) {
+
+    public Request(LeftPanel leftPanel, String txt, int kind, Color color, Insomina insomina, String noNumber) {
         super(leftPanel);
         this.kind = kind;
+        this.noNumber = noNumber;
+        text = txt;
+        this.insomina = insomina;
         this.color = color;
         panel.setVisible(true);
         label = new JLabel(new ImageIcon(icons[kind]));
@@ -42,7 +47,6 @@ public class Request extends Files {
         panel.setLayout(new BorderLayout());
         panel.add(label, BorderLayout.WEST);
         addActions(btn);
-        innerFolders.setBackground(color);
         temp.setBackground(color);
         btn.setBorder(BorderFactory.createCompoundBorder(btn.getBorder(), BorderFactory.createEmptyBorder(1, 8, 1, 8)));
         panel.add(temp, BorderLayout.CENTER);
@@ -51,12 +55,13 @@ public class Request extends Files {
         temp.add(labelTxt, BorderLayout.WEST);
         panel.setBackground(color);
         panel.add(btn, BorderLayout.EAST);
-        generalPannel.add(panel);
+        generalPanel.add(panel);
     }
+
     /**
-     * @param btn out aim button
-     * add action to button
-     *   we implemet  all the actions on what we want here
+     * @param btn our aim button
+     *            add action to button
+     *            we implemet  all the actions on what we want here
      */
     public void addActions(JButton btn) {
         btn.addMouseListener(new MouseAdapter() {
@@ -73,9 +78,8 @@ public class Request extends Files {
                 super.mouseClicked(e);
                 System.out.println("1");
                 System.out.println("comp");
-                generalPannel.remove(panel);
-                generalPannel.updateUI();
-
+                generalPanel.remove(panel);
+                generalPanel.updateUI();
             }
 
             @Override
@@ -103,6 +107,13 @@ public class Request extends Files {
                 btn.setBackground(color);
             }
 
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                insomina.key = noNumber;
+                insomina.middlePanel.setCb(color, text);
+                insomina.middlePanel.revalidate();
+                super.mouseClicked(e);
+            }
         });
     }
 }

@@ -5,19 +5,22 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
 
 /**
  * in this project we want to simulation
  * of insomina application
- *
  * @author Farhan Farsi
  * @version 0.0
  */
 public class Insomina extends JFrame {
+    HashMap<String,Request> requestDictionary = new HashMap<>();
     Menus menu = new Menus() ;
     LeftPanel leftPanel = new LeftPanel(this);
+    String key = "";
     MiddlePanel middlePanel = new MiddlePanel(this);
     RightPanel rightPanel = new RightPanel(this);
+
 
     /**
      * create one inner class to create menu and menu bar
@@ -126,12 +129,12 @@ public class Insomina extends JFrame {
             return view;
         }
     }
-
     /**
      * first class that have all 3 paanel and combine them to
      * getter with Panel3 class.
      */
     public Insomina() {
+        setLocation(240,260);
         Panels3 panels3 = new Panels3(this);
         this.setJMenuBar(menu);
         setLayout(new GridLayout(1, 1));

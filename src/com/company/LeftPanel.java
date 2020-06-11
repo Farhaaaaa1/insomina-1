@@ -59,7 +59,7 @@ public class LeftPanel extends JPanel {
         req.add(Box.createRigidArea(new Dimension(10, 20)));
         JButton show = new JButton(new ImageIcon("src/1.png"));
         comouflage(show, new Color(0x2D2D2D));
-        show.addMouseListener(new AddFolderAndReqToList(show, this));
+        show.addMouseListener(new AddFolderAndReqToList(show, this,frame));
         show.setEnabled(false);
         req.add(txt, BorderLayout.CENTER);
         req.add(show, BorderLayout.EAST);
@@ -88,7 +88,7 @@ public class LeftPanel extends JPanel {
         for (Files F :
                 files) {
             p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
-            p.add(F.generalPannel);
+            p.add(F.generalPanel);
         }
         repaint();
         revalidate();

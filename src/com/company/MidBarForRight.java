@@ -25,7 +25,7 @@ public class MidBarForRight extends JPanel {
     JsonPanel jsonPanel1 = new JsonPanel();
     JsonPanel jsonPanel2 = new JsonPanel();
     Form formPanel = new Form("","");
-    Header header = new Header("","");
+    //Header header = new Header("","");
     JPanel m3 = new JPanel();
     RightHeader table = new RightHeader();
 
@@ -33,11 +33,13 @@ public class MidBarForRight extends JPanel {
         setLayout(new BorderLayout());
         add(upBar, BorderLayout.NORTH);
         add(middleBar, BorderLayout.CENTER);
+        JLabel Farbod = new JLabel(new ImageIcon("src/download.png"));
         middleBar.setLayout(new CardLayout());
+        middleBar.add(Farbod,BorderLayout.CENTER);
+        middleBar.setBackground(new Color(0x2D2D2D));
         JPanel m = new JPanel();
         m.setBackground(new Color(0x282828));
         m3.setBackground(new Color(0x282828));
-
         middleBar.add("hell", m);
         middleBar.add("JSON", jsonPanel);
         middleBar.add("JSON1", jsonPanel1);

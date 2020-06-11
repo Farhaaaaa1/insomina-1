@@ -20,22 +20,12 @@ public class Form extends JPanel {
     private JPanel panel = new JPanel();
     private Boolean isAble = false;
     JPanel general = new JPanel();
-
     public Form(String first, String sec) {
         general.setLayout(new BoxLayout(general, BoxLayout.Y_AXIS));
         general.add(create());
         add(general);
         setBackground(new Color(0x282828));
     }
-
-    public JPanel getPanel() {
-        return panel;
-    }
-
-    public Boolean getAble() {
-        return isAble;
-    }
-
     public JPanel create() {
         JPanel panel = new JPanel();
         JCheckBox ch = new JCheckBox();

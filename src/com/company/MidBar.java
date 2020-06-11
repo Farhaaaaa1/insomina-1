@@ -22,11 +22,11 @@ public class MidBar extends JPanel {
     Boolean isFirst = true;
     BinaryPanel binaryPanel = new BinaryPanel();
     JsonPanel jsonPanel = new JsonPanel();
-    Form formPanel = new Form("","");
-    Header header = new Header("","");
+    Form formPanel = new Form("", "");
+    Header header = new Header();
     JPanel m3 = new JPanel();
 
-    public MidBar() {
+    public MidBar(Insomina insomina) {
         setLayout(new BorderLayout());
         add(upBar, BorderLayout.NORTH);
         add(middleBar, BorderLayout.CENTER);
@@ -35,7 +35,7 @@ public class MidBar extends JPanel {
         JLabel hand = new JLabel(new ImageIcon("src/hand.png"));
         m.setBackground(new Color(0x282828));
         m.setLayout(new BorderLayout());
-        m.add(hand,BorderLayout.CENTER);
+        m.add(hand, BorderLayout.CENTER);
         middleBar.add("hell", m);
         middleBar.add("binary", binaryPanel);
         middleBar.add("JSON", jsonPanel);
@@ -69,8 +69,9 @@ public class MidBar extends JPanel {
 
     /**
      * here we creat all the buttons
+     *
      * @param button our aim buttons
-     * @param text text of it
+     * @param text   text of it
      */
     public void createButtons(JButton button, String text) {
         button.setBackground(color);
