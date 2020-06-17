@@ -24,7 +24,7 @@ public class Form extends JPanel {
         general.setLayout(new BoxLayout(general, BoxLayout.Y_AXIS));
         general.add(create());
         add(general);
-        setBackground(new Color(0x282828));
+        setBackground(Coloring.darkBack());
     }
     public JPanel create() {
         JPanel panel = new JPanel();
@@ -37,19 +37,19 @@ public class Form extends JPanel {
         JLabel garbage = new JLabel(new ImageIcon(new ImageIcon("src/garbage.png").getImage().getScaledInstance(16, 14, Image.SCALE_DEFAULT)));
         panel.setBorder(BorderFactory.createCompoundBorder(panel.getBorder(), BorderFactory.createEmptyBorder(10, 5, 5, 0)));
         panel.add(headers);
-        headers.setForeground(new Color(0x8B8B8B));
-        headers.setBackground(new Color(0x282828));
+        headers.setForeground(Coloring.fadeWhite());
+        headers.setBackground(Coloring.darkBack());
         headers.setBorder(BorderFactory.createCompoundBorder(headers.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
         JTextField values = new JTextField();
         values.setText(value);
         values.setColumns(10);
-        values.setForeground(new Color(0x8B8B8B));
-        values.setBackground(new Color(0x282828));
+        values.setForeground(Coloring.fadeWhite());
+        values.setBackground(Coloring.darkBack());
         values.setBorder(BorderFactory.createCompoundBorder(values.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
         addHover(values, "value...");
         addHover(headers, "name...");
         panel.add(values);
-        ch.setBackground(new Color(0x282828));
+        ch.setBackground(Coloring.darkBack());
         panel.add(ch);
 
         garbage.addMouseListener(new MouseAdapter() {
@@ -70,13 +70,13 @@ public class Form extends JPanel {
         ch.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                if (headers.getBackground().equals(new Color(0x282828))) {
-                    headers.setBackground(new Color(0x6860B4));
-                    values.setBackground(new Color(0x6860B4));
+                if (headers.getBackground().equals(Coloring.darkBack())) {
+                    headers.setBackground(Coloring.insomniaPurple());
+                    values.setBackground(Coloring.insomniaPurple());
                     isAble = true;
                 } else {
-                    headers.setBackground(new Color(0x282828));
-                    values.setBackground(new Color(0x282828));
+                    headers.setBackground(Coloring.darkBack());
+                    values.setBackground(Coloring.darkBack());
                     isAble = false;
                 }
             }
@@ -109,7 +109,7 @@ public class Form extends JPanel {
             }
         });
         panel.add(garbage);
-        panel.setBackground(new Color(0x282828));
+        panel.setBackground(Coloring.darkBack());
         count++;
         return panel;
     }

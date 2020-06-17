@@ -22,6 +22,7 @@ public class Hover extends MouseAdapter {
     @Override
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
+        if(textField.isEnabled())
         textField.setText("");
     }
 

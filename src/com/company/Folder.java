@@ -54,7 +54,6 @@ public class Folder extends Files {
 
     /**
      * add all actions for button
-     *
      * @param btn
      */
     public void addActions(JButton btn) {
@@ -178,7 +177,7 @@ public class Folder extends Files {
         JMenuItem INSOMNIA = new JMenuItem(text);
         INSOMNIA.setBorder(BorderFactory.createCompoundBorder(INSOMNIA.getBorder(), BorderFactory.createEmptyBorder(3, 12, 3, 10)));
         INSOMNIA.setFont(menu);
-        INSOMNIA.setBackground(new Color(0xFFFFFF));
+        INSOMNIA.setBackground(Coloring.white());
         return INSOMNIA;
     }
 

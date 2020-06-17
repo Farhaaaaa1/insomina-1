@@ -20,7 +20,7 @@ public class MidBarForRight extends JPanel {
     JPanel middleBar = new JPanel();
     Color color = new Color(0x2D2D2D);
     Boolean isFirst = true;
-    BinaryPanel binaryPanel = new BinaryPanel();
+  //  BinaryPanel binaryPanel = new BinaryPanel();
     JsonPanel jsonPanel = new JsonPanel();
     JsonPanel jsonPanel1 = new JsonPanel();
     JsonPanel jsonPanel2 = new JsonPanel();

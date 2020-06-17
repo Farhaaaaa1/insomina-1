@@ -25,6 +25,7 @@ public class RightHeader extends JPanel {
 
         String column[]={"NAME","VALUE"};
         JTable table = new JTable(data,column);
+        table.setEnabled(false);
         JScrollPane sp=new JScrollPane(table);
         sp.setBackground(new Color(0x282828));
         table.setBackground(new Color(0x282828));

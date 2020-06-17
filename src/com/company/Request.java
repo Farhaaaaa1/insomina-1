@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
@@ -14,18 +15,19 @@ import java.util.LinkedList;
  */
 public class Request extends Files {
     Insomina insomina;
+    String headerTxt = "";
     JLabel label;
     int kind;
     JLabel labelTxt;
     String noNumber;
-    JPanel header = new JPanel();
     JPanel panel = new JPanel();
     JPanel temp = new JPanel();
+    Header header;
     // image of kinds of requests
     int x = 27;
     int y = 14;
-    Image[] icons = {changSize(new ImageIcon("src/del.png"), x-2, y), changSize(new ImageIcon("src/get.png"), x-2, y),
-            changSize(new ImageIcon("src/post.png"), x+5, y), changSize(new ImageIcon("src/put.png"), x, y),
+    Image[] icons = {changSize(new ImageIcon("src/del.png"), x - 2, y), changSize(new ImageIcon("src/get.png"), x - 2, y),
+            changSize(new ImageIcon("src/post.png"), x + 5, y), changSize(new ImageIcon("src/put.png"), x, y),
             changSize(new ImageIcon("src/patc.png"), 27, y)};
     Color color;
 
@@ -33,6 +35,7 @@ public class Request extends Files {
         super(leftPanel);
         this.kind = kind;
         this.noNumber = noNumber;
+        header = new Header("", "", insomina);
         text = txt;
         this.insomina = insomina;
         this.color = color;
@@ -110,10 +113,47 @@ public class Request extends Files {
             @Override
             public void mouseClicked(MouseEvent e) {
                 insomina.key = noNumber;
-                insomina.middlePanel.setCb(color, text);
+                insomina.middlePanel.setCb(getColor(kind), getText(kind));
                 insomina.middlePanel.revalidate();
+                insomina.middlePanel.midBar.middleBar.remove(4);
+                insomina.middlePanel.midBar.middleBar.add("Head", header);
+                insomina.middlePanel.midBar.updateUI();
                 super.mouseClicked(e);
             }
         });
+    }
+
+    public Color getColor(int kind) {
+        switch (kind) {
+            case 0:
+                return Coloring.red();
+            case 1:
+                return Coloring.blue();
+            case 2:
+                return Coloring.purple();
+            case 3:
+                return Coloring.green();
+            case 4:
+                return Coloring.orange();
+            default:
+                return Coloring.bone();
+        }
+    }
+
+    public String getText(int kind) {
+        switch (kind) {
+            case 0:
+                return "DEL";
+            case 1:
+                return "GET";
+            case 2:
+                return "POST";
+            case 3:
+                return "PUT";
+            case 4:
+                return "PATC";
+            default:
+                return "";
+        }
     }
 }

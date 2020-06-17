@@ -19,9 +19,11 @@ public class MiddlePanel extends JPanel {
     JPanel upBar = new JPanel();
     JPopupMenu popupMenu = new JPopupMenu();
     Insomina insomina;
-    Image[] icons = {changSize(new ImageIcon("src/del.png"), 23, 14), changSize(new ImageIcon("src/get.png"), 23, 14),
-            changSize(new ImageIcon("src/post.png"), 23, 14), changSize(new ImageIcon("src/put.png"), 23, 14),
-            changSize(new ImageIcon("src/patc.png"), 27, 14)};
+    int x = 27;
+    int y = 14;
+    Image[] icons = {changSize(new ImageIcon("src/del.png"), x-2, y), changSize(new ImageIcon("src/get.png"), x-2, y),
+            changSize(new ImageIcon("src/post.png"), x+5, y), changSize(new ImageIcon("src/put.png"), x, y),
+            changSize(new ImageIcon("src/patc.png"), 27, y)};
 
     /**
      * create base of the middle pannel
@@ -37,7 +39,7 @@ public class MiddlePanel extends JPanel {
         prepareText(textField);
         upBar.setLayout(new BorderLayout());
         setSendBtn(send);
-        setCb(new Color(353432), "hello");
+        setCb(Coloring.bone(), "Opt");
         cb.setBorder(BorderFactory.createCompoundBorder(cb.getBorder(), BorderFactory.createEmptyBorder(0, -20, 0, 0)));
         send.setBorder(BorderFactory.createCompoundBorder(send.getBorder(), BorderFactory.createEmptyBorder(0, 15, 0, 0)));
         setPopupMenu();
@@ -55,14 +57,12 @@ public class MiddlePanel extends JPanel {
      * @param s Text that we want to put it in this component
      */
     public void setCb(Color c, String s) {
-        System.out.println(s + "   our string");
         cb.setPreferredSize(new Dimension(70, 5));
         cb.setFont(new Font("WTD", Font.LAYOUT_NO_LIMIT_CONTEXT, 15));
         cb.setOpaque(true);
         cb.setBorderPainted(false);
         cb.setBackground(c);
         cb.setText(s);
-        System.out.println(cb.getText() + "   hala");
         cb.setEnabled(false);
         upBar.repaint();
         upBar.revalidate();
@@ -75,15 +75,13 @@ public class MiddlePanel extends JPanel {
             }
         });
     }
-
     /**
      * with this method we prepare CB button
-     *
      * @param btn labale that we want to costumize it
      */
     public void setSendBtn(JLabel btn) {
         btn.setPreferredSize(new Dimension(75, 5));
-        btn.setBackground(new Color(0xE3E3E3));
+        btn.setBackground(Coloring.bone());
         btn.setFont(new Font("WTF", Font.LAYOUT_NO_LIMIT_CONTEXT, 15));
         btn.setOpaque(true);
         btn.setEnabled(false);
@@ -100,7 +98,7 @@ public class MiddlePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 text = del.getText();
-                colorr = new Color(0x9A252A);
+                colorr = Coloring.red();
                 setCb(colorr, text);
                 linkToRequest(0);
             }
@@ -111,7 +109,7 @@ public class MiddlePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 text = get.getText();
-                colorr = new Color(0x1D3284);
+                colorr = Coloring.blue();
                 setCb(colorr, text);
                 linkToRequest(1);
             }
@@ -122,7 +120,7 @@ public class MiddlePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 text = post.getText();
-                colorr = new Color(0x641183);
+                colorr = Coloring.purple();
                 setCb(colorr, text);
                 linkToRequest(2);
             }
@@ -133,7 +131,7 @@ public class MiddlePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 text = put.getText();
-                colorr = new Color(0x50833F);
+                colorr = Coloring.green();
                 setCb(colorr, text);
                 linkToRequest(3);
             }
@@ -144,7 +142,7 @@ public class MiddlePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 text = pats.getText();
-                colorr = new Color(0xBE501F);
+                colorr = Coloring.orange();
                 setCb(colorr, text);
                 linkToRequest(4);
             }
@@ -152,12 +150,11 @@ public class MiddlePanel extends JPanel {
 
 
         if (isFirst) {
-            addToPup(del, new Color(0x9A252A));
-            addToPup(get, new Color(0x1D3284));
-            addToPup(post, new Color(0x641183));
-            addToPup(put, new Color(0x50833F));
-            addToPup(pats, new Color(0xBE501F));
-
+            addToPup(del, Coloring.red());
+            addToPup(get, Coloring.blue());
+            addToPup(post, Coloring.purple());
+            addToPup(put, Coloring.green());
+            addToPup(pats, Coloring.orange());
             isFirst = false;
         }
 
@@ -186,7 +183,7 @@ public class MiddlePanel extends JPanel {
     public void prepareText(JTextField txt) {
         txt.setPreferredSize(new Dimension(110, 45));
         txt.setBorder(BorderFactory.createCompoundBorder(upBar.getBorder(), BorderFactory.createEmptyBorder(8, 3, 8, 10)));
-        txt.setBackground(new Color(0xFFFFFA));
+        txt.setBackground(Coloring.white());
         txt.setFont(new Font("WTF", Font.ROMAN_BASELINE, 15));
         txt.setForeground(Color.gray);
         txt.setText("https://wtf.myfucking.com");

@@ -12,9 +12,7 @@ import java.awt.event.MouseEvent;
  * creat each of item one by one
  */
 public class InsomniaPopUp extends JPopupMenu {
-
     public InsomniaPopUp() {
-
         this.setBackground(new Color(0xFFFAFA));
         Font title = new Font("myFont", Font.ITALIC, 10);
         Font menu = new Font("myFont", Font.PLAIN, 12);
@@ -25,7 +23,6 @@ public class InsomniaPopUp extends JPopupMenu {
         INSOMNIA.setBackground(new Color(0xFFFFFF));
         add(INSOMNIA);
         INSOMNIA.setEnabled(false);
-
         JMenuItem work = new JMenuItem("Workspace Setting");
         work.setBorder(BorderFactory.createCompoundBorder(work.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
         work.setFont(menu);
