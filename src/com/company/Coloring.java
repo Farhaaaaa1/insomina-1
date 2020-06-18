@@ -2,6 +2,9 @@ package com.company;
 
 import java.awt.*;
 
+/**
+ * all of our my color are here and we can choose them
+ */
 public final class Coloring {
     public static final Color green() {
         return new Color(0x50833F);
@@ -32,6 +35,12 @@ public final class Coloring {
     }
     public static final Color darkBack() {
         return new Color(0x282828);
+    }
+   public static final Color tomato() {
+        return new Color(0xB41613);
+    }
+   public static final Color shinyGreen() {
+        return new Color(0x58D438);
     }
 
 

@@ -32,7 +32,8 @@ public class RequestSending {
     HttpRequest.Builder request;
     HttpClient client;
     Insomina insomina;
-    public RequestSending(RequestModel RequestModel , Insomina insomina) {
+
+    public RequestSending(RequestModel RequestModel, Insomina insomina) {
         this.insomina = insomina;
         this.fieldList = RequestModel;
         fillToTheFields();
@@ -120,6 +121,7 @@ public class RequestSending {
 
     /**
      * in this method we add the messege body
+     *
      * @param request
      * @return
      */
@@ -134,6 +136,7 @@ public class RequestSending {
 
     /**
      * here in this method we get our request
+     *
      * @return request
      */
     public HttpRequest getRequest() {
@@ -168,7 +171,6 @@ public class RequestSending {
      * may be here is our
      * most important method that we have in this class our may be in this code
      * here we send our request (up our request)
-     *
      */
     public void sendRequest() {
         HttpResponse<byte[]> response = null;
@@ -178,24 +180,32 @@ public class RequestSending {
             long T1 = System.currentTimeMillis();
             String time = String.valueOf(T1 - T);
             System.out.println("time: " + time + " ms\n");
-            insomina.rightPanel.time.setText(time+" ms");
+            try {
+                insomina.requestDictionary.get(insomina.key).getResponsRequirement.setTime(time);
+            } catch (NullPointerException ignored) {
+            }
             insomina.rightPanel.revalidate();
             insomina.rightPanel.revalidate();
             insomina.rightPanel.updateUI();
             float transfer = response.body().length / 1024f;
-            String transferByte = String.valueOf(transfer) + " KB\n";
+            String transferByte = String.valueOf(transfer).substring(0, 4);
+            try {
+                insomina.requestDictionary.get(insomina.key).getResponsRequirement.setBytee(transferByte);
+            } catch (NullPointerException ignored) {
+            }
             System.out.println(transferByte);
             int statusCode = response.statusCode();
-            System.out.println("status code: " + statusCode + "\n");
+            try {
+                insomina.requestDictionary.get(insomina.key).getResponsRequirement.setCode(statusCode);
+            } catch (NullPointerException ignored) {
+            }
             if (fieldList.getOurArgs().contains("-H")) {
                 HttpHeaders header = response.headers();
                 System.out.println(header.toString());
             }
             byte[] body = response.body();
-            System.out.println(new String(body, Charset.defaultCharset()));
-            if (fieldList.getOurArgs().contains("-O")) {
-             //   FileWork.saveResBody(body,output);
-            }
+            insomina.requestDictionary.get(insomina.key).getResponsRequirement.setHeaderMap((Map<String, List<String>>) response.headers().map());
+            insomina.requestDictionary.get(insomina.key).getResponsRequirement.setBody(new String(body, Charset.defaultCharset()));
             //System.out.println("time : " + time + " transferres byte : " + transferByte + " body : " + body + " headers : " + header);
         } catch (Exception e) {
             e.printStackTrace();

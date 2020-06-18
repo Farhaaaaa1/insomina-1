@@ -1,15 +1,11 @@
 package com.company;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -26,7 +22,10 @@ public class Header extends JPanel {
     private Boolean isAble = false;
     JPanel general = new JPanel();
     LinkedHashMap<JPanel, String> headerDictionary = new LinkedHashMap<>();
-
+    /**
+     * here we have our every each of kind headers
+     * that we create them
+     */
     public Header(String first, String sec, Insomina insomina) {
         general.setLayout(new BoxLayout(general, BoxLayout.Y_AXIS));
         general.add(create());
@@ -39,7 +38,9 @@ public class Header extends JPanel {
         JPanel panel = new JPanel();
         Boolean isDeletable = true;
         JCheckBox ch = new JCheckBox();
-
+        /**
+         * here we create them (each of header)
+         */
         public EachHeader() {
             ch.setFocusable(false);
             panel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -160,7 +161,10 @@ public class Header extends JPanel {
             count++;
         }
     }
-
+    /**
+     * with this method we create another each form
+     * @return a header pannel
+     */
     public JPanel create() {
         EachHeader header = new EachHeader();
         headerDictionary.put(header.panel, String.valueOf(System.currentTimeMillis()));
@@ -170,7 +174,6 @@ public class Header extends JPanel {
     /**
      * with this method we put
      * hover action on them
-     *
      * @param txt      our text field
      * @param defaultt whats our default text
      */
@@ -191,10 +194,9 @@ public class Header extends JPanel {
         repaint();
     }
 
-    public void headerDictionary() {
-
-    }
-
+    /**
+     * here we add them to the general pannel
+     */
     public void addToGeneral() {
         general.removeAll();
         for (Map.Entry<JPanel, String> A :
@@ -202,7 +204,11 @@ public class Header extends JPanel {
             general.add((JPanel) A.getKey());
         }
     }
-
+    /**
+     * a method to get this each form is last one or not
+     * @param panel our pannel (key in this way)
+     * @return
+     */
     public boolean isLast(JPanel panel) {
         long maxTime = 0;
         for (Map.Entry<JPanel, String> A :

@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+/**
+ * here we are in binary panel that is for binaru --output also
+ */
 public class BinaryPanel extends JPanel {
     Insomina insomina;
     File file;
@@ -32,7 +35,6 @@ public class BinaryPanel extends JPanel {
 
         setBackground(Coloring.darkBack());
         setLayout(new BorderLayout());
-        //frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         path.setCaretColor(Coloring.darkBack());
         path.setBackground(Coloring.darkBack());
         add(path, BorderLayout.NORTH);
@@ -53,6 +55,7 @@ public class BinaryPanel extends JPanel {
         refreshAndChooser.add(button);
         refreshAndChooser.add(button1);
         temp.add(refreshAndChooser, BorderLayout.NORTH);
+        //choose file
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -60,6 +63,7 @@ public class BinaryPanel extends JPanel {
                 button1.setEnabled(true);
             }
         });
+        // refreshing
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -79,6 +83,11 @@ public class BinaryPanel extends JPanel {
         path.setPreferredSize(new Dimension(50, 50));
     }
 
+    /**
+     * here we create file button
+     * @param button our button
+     * @param string text of our button
+     */
     public void createFileButton(JButton button, String string) {
         button.setBorder(BorderFactory.createCompoundBorder(button.getBorder(), BorderFactory.createEmptyBorder(8, 0, 8, 0)));
         button.setForeground(Coloring.darkBack());

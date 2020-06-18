@@ -5,9 +5,11 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
- * creat request here
+ * create request here
  * and also give them detailes
  */
 public class Request extends Files {
@@ -17,6 +19,7 @@ public class Request extends Files {
     String uploadTxt = " --upload ";
     String formTxt = "-d ";
     JLabel label;
+    GetResponsRequirement getResponsRequirement;
     String messageBody = "";
     String url = "http://apapi.haditabatabaei.ir/docs";
     int kind;
@@ -45,6 +48,7 @@ public class Request extends Files {
         jsonPanel = new JsonPanel(insomina);
         binaryPanel = new BinaryPanel(insomina);
         text = txt;
+        getResponsRequirement = new GetResponsRequirement();
         this.insomina = insomina;
         this.color = color;
         panel.setVisible(true);
@@ -138,6 +142,7 @@ public class Request extends Files {
                 System.out.println(Arrays.toString(new int[]{insomina.middlePanel.midBar.middleBar.getComponents().length}) + "  size");
                 System.out.println("json " + jsonTxt + " header " + headerTxt + "  upload " + uploadTxt + "  form  " + formTxt);
                 System.out.println(createGUIRequest());
+                linkToRightPanel();
                 insomina.middlePanel.midBar.updateUI();
             }
         });
@@ -179,15 +184,67 @@ public class Request extends Files {
 
     public String createGUIRequest() {
         String request = url + " --method " + getText(this.kind) + " ";
-        System.out.println("");
+        System.out.println();
         System.out.println(messageBody + "  messege body");
-        messageBody=messageBody.replaceAll("\\s{2,}", " ");
+        messageBody = messageBody.replaceAll("\\s{2,}", " ");
         System.out.println(messageBody.split(" ").length);
-        if(messageBody.split(" ").length>1)
-            request = request+messageBody;
+        if (messageBody.split(" ").length > 1)
+            request = request + messageBody;
         if (!headerTxt.equals(""))
             return request + " --headers " + headerTxt;
         else
             return request;
+    }
+
+    /**
+     * here we link our requests to right panel
+     */
+    public void linkToRightPanel() {
+        String code = "";
+        Color color = new Color(0xEBEBE6);
+          try {
+        if (getResponsRequirement.getCode() == -1) {
+            code = "Error";
+            color = Coloring.tomato();
+        } else if (getResponsRequirement.getCode() < 300) {
+            code = "OK";
+            color = Coloring.shinyGreen();
+        } else if (getResponsRequirement.getCode() == 999) {
+            code = "linkdn";
+            color = new Color(0x51D4EA);
+        } else {
+            code = "Error";
+            color = Coloring.tomato();
+        }
+        insomina.rightPanel.setCb(color, " " + getResponsRequirement.getCode() + " " + code, insomina.rightPanel.cb);
+        insomina.rightPanel.time.setText(" " + getResponsRequirement.getTime() + " ms");
+        insomina.rightPanel.speed.setText(" " + getResponsRequirement.getBytee() + " KB");
+        System.out.println(getResponsRequirement.getCode() + "   codddde");
+        System.out.println(insomina.rightPanel.midBar.middleBar.getComponents().length+" length");
+        Raw.textArea.setText(getResponsRequirement.getBody());
+        RightHeader.myStr = convertMapTo2DArray(getResponsRequirement.getHeaderMap());
+        insomina.rightPanel.midBar.repaint();
+        insomina.rightPanel.midBar.revalidate();
+        insomina.rightPanel.midBar.updateUI();
+        System.out.println(getResponsRequirement.getBody());
+        insomina.repaint();
+        insomina.revalidate();
+           } catch (NullPointerException ignored) {
+           }
+    }
+    /**
+     * convert maps to 2d array to use for header
+     * @param map respons header map
+     * @return a 2d array
+     */
+    public String[][] convertMapTo2DArray(Map<String, java.util.List<String>> map) {
+        String[][] myString = new String[map.size()][2];
+        int i = 0;
+        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+            myString[i][0]= String.valueOf(entry.getKey());
+            myString[i][1]= String.valueOf(entry.getValue().get(0));
+            i++;
+        }
+        return myString;
     }
 }

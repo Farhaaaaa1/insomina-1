@@ -1,5 +1,8 @@
 package com.company;
 
+/**
+ * all the error are here
+ */
 public  final class Error {
     public static final void errorList1(int i) {
         switch (i) {

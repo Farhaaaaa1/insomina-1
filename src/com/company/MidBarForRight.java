@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
+import java.util.Map;
 
 /**
  * creat mid bar for right panel here
@@ -19,31 +21,28 @@ public class MidBarForRight extends JPanel {
     JPanel upBar = new JPanel();
     JPanel middleBar = new JPanel();
     Color color = new Color(0x2D2D2D);
+    Insomina insomina;
     Boolean isFirst = true;
-  //  BinaryPanel binaryPanel = new BinaryPanel();
-//    JsonPanel jsonPanel = new JsonPanel(insomina);
-//    JsonPanel jsonPanel1 = new JsonPanel(insomina);
-//    JsonPanel jsonPanel2 = new JsonPanel(insomina);
-  //  Form formPanel = new Form("","",);
-    //Header header = new Header("","");
+    Raw raw;
     JPanel m3 = new JPanel();
-    RightHeader table = new RightHeader();
+    RightHeader table ;
 
-    public MidBarForRight() {
+    public MidBarForRight(Insomina insomina) {
+        this.insomina = insomina;
+        table = new RightHeader(insomina);
+        raw = new Raw(insomina);
         setLayout(new BorderLayout());
         add(upBar, BorderLayout.NORTH);
         add(middleBar, BorderLayout.CENTER);
         JLabel Farbod = new JLabel(new ImageIcon("src/download.png"));
         middleBar.setLayout(new CardLayout());
-        middleBar.add(Farbod,BorderLayout.CENTER);
+        middleBar.add(Farbod, BorderLayout.CENTER);
         middleBar.setBackground(new Color(0x2D2D2D));
         JPanel m = new JPanel();
         m.setBackground(new Color(0x282828));
         m3.setBackground(new Color(0x282828));
         middleBar.add("hell", m);
-//        middleBar.add("JSON", jsonPanel);
-//        middleBar.add("JSON1", jsonPanel1);
-//        middleBar.add("JSON2", jsonPanel2);
+        middleBar.add("RAW", raw);
         middleBar.add("Head", table);
         middleBar.add("hell3", m3);
         createPopUp();
@@ -67,15 +66,20 @@ public class MidBarForRight extends JPanel {
         Header.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try{
+                RightHeader.myStr =convertMapTo2DArray(insomina.requestDictionary.get(insomina.key).getResponsRequirement.getHeaderMap());}
+                catch (NullPointerException ignored){}
                 ((CardLayout) middleBar.getLayout()).show(middleBar, "Head");
             }
+
         });
     }
 
     /**
      * creat or costomize our button
+     *
      * @param button our aim button
-     * @param text text that will be appred on it
+     * @param text   text that will be appred on it
      */
     public void createButtons(JButton button, String text) {
         button.setBackground(color);
@@ -99,17 +103,19 @@ public class MidBarForRight extends JPanel {
         popupMenu.add(INSOMNIA);
         INSOMNIA.setEnabled(false);
 
-        JMenuItem form = new JMenuItem("RAW");
-        form.setBorder(BorderFactory.createCompoundBorder(form.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
-        form.setFont(menu);
-        form.setBackground(new Color(0xFFFFFF));
-        popupMenu.add(form);
-        form.addActionListener(new ActionListener() {
+        JMenuItem RAW = new JMenuItem("RAW");
+        RAW.setBorder(BorderFactory.createCompoundBorder(RAW.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
+        RAW.setFont(menu);
+        RAW.setBackground(new Color(0xFFFFFF));
+        popupMenu.add(RAW);
+        RAW.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Body.setText(form.getText());
-                ((CardLayout) middleBar.getLayout()).show(middleBar, "JSON");
-
+                Body.setText(RAW.getText());
+                try{
+                Raw.textArea.setText(insomina.requestDictionary.get(insomina.key).getResponsRequirement.getBody());}
+                catch (NullPointerException ignored){}
+                ((CardLayout) middleBar.getLayout()).show(middleBar, "RAW");
             }
         });
 
@@ -139,6 +145,22 @@ public class MidBarForRight extends JPanel {
             }
         });
 
+    }
+
+    /**
+     * convert maps to 2d array to use for header
+     * @param map respons header map
+     * @return a 2d array
+     */
+    public String[][] convertMapTo2DArray(Map<String, java.util.List<String>> map) {
+        String[][] myString = new String[map.size()][2];
+        int i = 0;
+        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+            myString[i][0]= String.valueOf(entry.getKey());
+            myString[i][1]= String.valueOf(entry.getValue().get(0));
+            i++;
+        }
+        return myString;
     }
 
 }

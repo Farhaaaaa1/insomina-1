@@ -31,11 +31,18 @@ public class Form extends JPanel {
         this.insomina = insomina;
     }
 
+    /**
+     * here we have our every each of kind forms
+     * that we create them
+     */
     public class EachHeader {
         JPanel panel = new JPanel();
         Boolean isDeletable = true;
         JCheckBox ch = new JCheckBox();
 
+        /**
+         * here we create them (each of forms)
+         */
         public EachHeader() {
             ch.setFocusable(false);
             panel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -159,6 +166,10 @@ public class Form extends JPanel {
         }
     }
 
+    /**
+     * with this method we create another each form
+     * @return a form pannel
+     */
     public JPanel create() {
         EachHeader header = new EachHeader();
         headerDictionary.put(header.panel, String.valueOf(System.currentTimeMillis()));
@@ -189,10 +200,9 @@ public class Form extends JPanel {
         repaint();
     }
 
-    public void headerDictionary() {
-
-    }
-
+    /**
+     * here we add them to the general pannel
+     */
     public void addToGeneral() {
         general.removeAll();
         for (Map.Entry<JPanel, String> A :
@@ -201,6 +211,11 @@ public class Form extends JPanel {
         }
     }
 
+    /**
+     * a method to get this each form is last one or not
+     * @param panel our pannel (key in this way)
+     * @return
+     */
     public boolean isLast(JPanel panel) {
         long maxTime = 0;
         for (Map.Entry<JPanel, String> A :

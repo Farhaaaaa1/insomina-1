@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * in this class we add folfers ro request list
+ */
 public class AddFolderAndReqToList extends MouseAdapter {
     JButton plus = new JButton();
     Color color;
@@ -13,6 +16,11 @@ public class AddFolderAndReqToList extends MouseAdapter {
     String openOrNot = "Close";
     Insomina insomina;
 
+    /**
+     * @param plus plus button
+     * @param leftPanel our left panel
+     * @param insomina insomina LOL
+     */
     public AddFolderAndReqToList(JButton plus, LeftPanel leftPanel, Insomina insomina) {
         this.plus = plus;
         this.leftPanel = leftPanel;
@@ -20,13 +28,15 @@ public class AddFolderAndReqToList extends MouseAdapter {
         color = plus.getBackground();
     }
 
+    /**
+     * when it pressed show the pop up menu
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
         if (isFirst)
             popUpCreating(popupMenu);
         popupMenu.show(plus, e.getX(), e.getY());
-//         String name1 = JOptionPane.showInputDialog("enter your name bro ") ;
     }
 
     @Override
@@ -42,6 +52,9 @@ public class AddFolderAndReqToList extends MouseAdapter {
 
     }
 
+    /**
+     * creating pop up menu here
+     */
     public void popUpCreating(JPopupMenu popupMenu) {
         popupMenu.setBackground(new Color(0xFFFAFA));
         JMenuItem folder = createItem("New Folder");
@@ -80,6 +93,11 @@ public class AddFolderAndReqToList extends MouseAdapter {
         isFirst = false;
     }
 
+    /**
+     * in this method we create item for pop up menu
+     * @param text text of item
+     * @return return menu item
+     */
     public JMenuItem createItem(String text) {
         Font menu = new Font("myFont", Font.PLAIN, 12);
         JMenuItem INSOMNIA = new JMenuItem(text);

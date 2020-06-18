@@ -1,43 +1,63 @@
 package com.company;
 
-public class GetResponsRequirement {
-    private static String time = null;
-    private static String bytee = null;
-    private static String code = null;
-    private static String body = null;
+import java.util.List;
+import java.util.Map;
 
+/**
+ * in this class we get all thing we want
+ * from what internet give to us
+ */
+public class GetResponsRequirement {
+    private  String time = null;
+    private  String bytee = null;
+    private  int code = -1;
+    private  String body = null;
+    private Map<String, List<String>> headerMap = null ;
     public GetResponsRequirement() {
     }
 
-    public static void setTime(String time) {
-        GetResponsRequirement.time = time;
+    /**
+     * getter and settersss
+     */
+
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
-    public static void setBytee(String bytee) {
-        GetResponsRequirement.bytee = bytee;
+    public void setBytee(String bytee) {
+        this.bytee = bytee;
     }
 
-    public static void setCode(String code) {
-        GetResponsRequirement.code = code;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public static void setBody(String body) {
-        GetResponsRequirement.body = body;
+    public void setBody(String body) {
+        this.body = body;
     }
 
-    public static  String getTime() {
+    public Map<String, List<String>> getHeaderMap() {
+        return headerMap;
+    }
+
+    public void setHeaderMap(Map<String, List<String>> headerMap) {
+        this.headerMap = headerMap;
+    }
+
+    public String getTime() {
         return time;
     }
 
-    public static String getBytee() {
+    public String getBytee() {
         return bytee;
     }
 
-    public static String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public static String getBody() {
+    public String getBody() {
         return body;
     }
 }

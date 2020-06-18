@@ -226,17 +226,28 @@ public class MiddlePanel extends JPanel {
         });
     }
 
+    /**
+     * with this method we can change the size of image easiely
+     * @param icon our icon
+     * @param x width
+     * @param y height
+     * @return our image in new size
+     */
     public Image changSize(ImageIcon icon, int x, int y) {
         return icon.getImage().getScaledInstance(x, y, Image.SCALE_DEFAULT);
     }
 
+    /**
+     * with this method we link middle pannel to our request
+     * @param kind kind of method
+     */
     public void linkToRequest(int kind) {
         insomina.requestDictionary.get(insomina.key).label.setIcon(new ImageIcon(icons[kind]));
         insomina.requestDictionary.get(insomina.key).kind = kind;
     }
 
     public void createResponse() {
-       new SwingWorker<String, Object>() {
+        new SwingWorker<String, Object>() {
             @Override
             protected String doInBackground() throws Exception {
                 insomina.rightPanel.removeAll();
@@ -251,10 +262,11 @@ public class MiddlePanel extends JPanel {
                     new RequestSending(requestModel, insomina).sendRequest();
                 else {
                     JOptionPane.showMessageDialog(insomina, " you put sth wrong ");
-                    GetResponsRequirement.setCode(null);
-                    GetResponsRequirement.setBytee(null);
-                    GetResponsRequirement.setBody(null);
-                    GetResponsRequirement.setTime(null);
+                    insomina.requestDictionary.get(insomina.key).getResponsRequirement.setCode(-1);
+                    insomina.requestDictionary.get(insomina.key).getResponsRequirement.setBytee(null);
+                    insomina.requestDictionary.get(insomina.key).getResponsRequirement.setBytee(null);
+                    insomina.requestDictionary.get(insomina.key).getResponsRequirement.setTime(null);
+
                 }
                 return "";
             }
@@ -263,12 +275,54 @@ public class MiddlePanel extends JPanel {
             protected void done() {
                 super.done();
                 insomina.rightPanel.removeAll();
+                createRightPanel();
                 System.out.println();
                 insomina.rightPanel.repaint();
                 insomina.rightPanel.revalidate();
                 // } catch (InterruptedException | NullPointerException | ExecutionException ignored) {
                 //  }
+
             }
         }.execute();
     }
+
+    /**
+     * create right panel here after we remove all of them
+     */
+    public void createRightPanel() {
+        String code = "";
+        Color color = new Color(0xEBEBE6);
+        Request myRequest = insomina.requestDictionary.get(insomina.key);
+        insomina.rightPanel.setLayout(new BorderLayout());
+        insomina.rightPanel.add(insomina.rightPanel.upBar, BorderLayout.NORTH);
+        MidBarForRight midBar = new MidBarForRight(insomina);
+        insomina.rightPanel.add(midBar, BorderLayout.CENTER);
+        insomina.rightPanel.upBar.setLayout(new FlowLayout(FlowLayout.LEFT));
+        insomina.rightPanel.setBtn(insomina.rightPanel.time);
+        insomina.rightPanel.setBtn(insomina.rightPanel.speed);
+        try {
+            if (insomina.requestDictionary.get(insomina.key).getResponsRequirement.getCode() == -1) {
+                code = "Error";
+                color = Coloring.tomato();
+            } else if (myRequest.getResponsRequirement.getCode() < 300) {
+                code = "OK";
+                color = Coloring.shinyGreen();
+            } else if (myRequest.getResponsRequirement.getCode() == 999) {
+                code = "linkdn";
+                color = new Color(0x51D4EA);
+            } else {
+                code = "Error";
+                color = Coloring.tomato();
+            }
+            insomina.rightPanel.setCb(color, " " + myRequest.getResponsRequirement.getCode() + " " + code, insomina.rightPanel.cb);
+            System.out.println(" " + myRequest.getResponsRequirement.getCode() + "  code");
+            insomina.rightPanel.time.setText(" " + myRequest.getResponsRequirement.getTime() + " ms");
+            insomina.rightPanel.speed.setText(" " + myRequest.getResponsRequirement.getBytee() + " KB");
+            Raw.textArea.setText(myRequest.getResponsRequirement.getBody());
+        } catch (NullPointerException ignored) {
+        }
+    }
+
+
+
 }
