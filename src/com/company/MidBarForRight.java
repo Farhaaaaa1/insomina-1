@@ -21,10 +21,10 @@ public class MidBarForRight extends JPanel {
     Color color = new Color(0x2D2D2D);
     Boolean isFirst = true;
   //  BinaryPanel binaryPanel = new BinaryPanel();
-    JsonPanel jsonPanel = new JsonPanel();
-    JsonPanel jsonPanel1 = new JsonPanel();
-    JsonPanel jsonPanel2 = new JsonPanel();
-    Form formPanel = new Form("","");
+//    JsonPanel jsonPanel = new JsonPanel(insomina);
+//    JsonPanel jsonPanel1 = new JsonPanel(insomina);
+//    JsonPanel jsonPanel2 = new JsonPanel(insomina);
+  //  Form formPanel = new Form("","",);
     //Header header = new Header("","");
     JPanel m3 = new JPanel();
     RightHeader table = new RightHeader();
@@ -41,9 +41,9 @@ public class MidBarForRight extends JPanel {
         m.setBackground(new Color(0x282828));
         m3.setBackground(new Color(0x282828));
         middleBar.add("hell", m);
-        middleBar.add("JSON", jsonPanel);
-        middleBar.add("JSON1", jsonPanel1);
-        middleBar.add("JSON2", jsonPanel2);
+//        middleBar.add("JSON", jsonPanel);
+//        middleBar.add("JSON1", jsonPanel1);
+//        middleBar.add("JSON2", jsonPanel2);
         middleBar.add("Head", table);
         middleBar.add("hell3", m3);
         createPopUp();

@@ -11,7 +11,6 @@ import java.awt.event.MouseEvent;
  * creat mid bar of middle panel here
  */
 public class MidBar extends JPanel {
-    JFrame fileFrame = new JFrame();
     JPopupMenu popupMenu = new JPopupMenu();
     JButton Body = new JButton();
     JButton Header = new JButton();
@@ -21,21 +20,16 @@ public class MidBar extends JPanel {
     JPanel middleBar = new JPanel();
     Color color = new Color(0x2D2D2D);
     Boolean isFirst = true;
-    BinaryPanel binaryPanel ;
-    JsonPanel jsonPanel = new JsonPanel();
+    BinaryPanel binaryPanel;
     Insomina insomina;
-    Form formPanel = new Form("", "");
-    Header header = new Header("", "",insomina);
+    JsonPanel jsonPanel = new JsonPanel(insomina);
+    Form formPanel = new Form("", "", insomina);
+    Header header = new Header("", "", insomina);
     JPanel m3 = new JPanel();
+
     public MidBar(Insomina insomina) {
-        this.insomina=insomina;
-        JFileChooser fileChooser = new JFileChooser();
-        binaryPanel = new BinaryPanel(fileChooser,insomina);
-        fileFrame.add(fileChooser);
-        fileFrame.setTitle("choose file");
-        fileFrame.setLocation(324,232);
-        fileFrame.setSize(720,420);
-        //fileFrame.setDefaultCloseOperation();
+        this.insomina = insomina;
+        binaryPanel = new BinaryPanel(insomina);
         setLayout(new BorderLayout());
         add(upBar, BorderLayout.NORTH);
         add(middleBar, BorderLayout.CENTER);
@@ -113,8 +107,13 @@ public class MidBar extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Body.setText(form.getText());
+
+                try {
+                    insomina.requestDictionary.get(insomina.key).messageBody =
+                            insomina.requestDictionary.get(insomina.key).formTxt;
+                } catch (NullPointerException ignored) {
+                }
                 ((CardLayout) middleBar.getLayout()).show(middleBar, "form");
-                fileFrame.setVisible(false);
             }
         });
 
@@ -134,9 +133,12 @@ public class MidBar extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Body.setText(json.getText());
+                try {
+                    insomina.requestDictionary.get(insomina.key).messageBody =
+                            insomina.requestDictionary.get(insomina.key).jsonTxt;
+                } catch (NullPointerException ignored) {
+                }
                 ((CardLayout) middleBar.getLayout()).show(middleBar, "JSON");
-                fileFrame.setVisible(false);
-
             }
 
         });
@@ -158,11 +160,14 @@ public class MidBar extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Body.setText(binary.getText());
-                fileFrame.setVisible(true);
+                try {
+                    insomina.requestDictionary.get(insomina.key).messageBody =
+                            insomina.requestDictionary.get(insomina.key).uploadTxt;
+                } catch (NullPointerException ignored) {
+                }
                 ((CardLayout) middleBar.getLayout()).show(middleBar, "binary");
             }
         });
 
     }
-
 }

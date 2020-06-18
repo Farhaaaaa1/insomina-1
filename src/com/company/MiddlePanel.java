@@ -21,9 +21,9 @@ public class MiddlePanel extends JPanel {
     Insomina insomina;
     int x = 27;
     int y = 14;
-    Image[] icons = {changSize(new ImageIcon("src/del.png"), x-2, y), changSize(new ImageIcon("src/get.png"), x-2, y),
-            changSize(new ImageIcon("src/post.png"), x+5, y), changSize(new ImageIcon("src/put.png"), x, y),
-            changSize(new ImageIcon("src/patc.png"), 27, y)};
+    Image[] icons = {changSize(new ImageIcon("src/del.png"), x - 2, y), changSize(new ImageIcon("src/get.png"), x - 2, y),
+            changSize(new ImageIcon("src/post.png"), x + 5, y), changSize(new ImageIcon("src/put.png"), x, y),
+            changSize(new ImageIcon("src/patc.png"), x, y), changSize(new ImageIcon("src/clock.png"), 500, 600)};
 
     /**
      * create base of the middle pannel
@@ -34,7 +34,7 @@ public class MiddlePanel extends JPanel {
         this.insomina = insomina;
         setLayout(new BorderLayout());
         add(upBar, BorderLayout.NORTH);
-         midBar = new MidBar(insomina);
+        midBar = new MidBar(insomina);
         add(midBar, BorderLayout.CENTER);
         prepareText(textField);
         upBar.setLayout(new BorderLayout());
@@ -75,8 +75,10 @@ public class MiddlePanel extends JPanel {
             }
         });
     }
+
     /**
      * with this method we prepare CB button
+     *
      * @param btn labale that we want to costumize it
      */
     public void setSendBtn(JLabel btn) {
@@ -85,6 +87,17 @@ public class MiddlePanel extends JPanel {
         btn.setFont(new Font("WTF", Font.LAYOUT_NO_LIMIT_CONTEXT, 15));
         btn.setOpaque(true);
         btn.setEnabled(false);
+        btn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                try {
+                    createResponse();
+                } catch (NullPointerException ignored) {
+                }
+            }
+        });
+
     }
 
     /**
@@ -163,6 +176,7 @@ public class MiddlePanel extends JPanel {
 
     /**
      * add item to pop up
+     * http://apapi.haditabatabaei.ir/docs
      *
      * @param a   what we want to add
      * @param col color of item
@@ -186,7 +200,7 @@ public class MiddlePanel extends JPanel {
         txt.setBackground(Coloring.white());
         txt.setFont(new Font("WTF", Font.ROMAN_BASELINE, 15));
         txt.setForeground(Color.gray);
-        txt.setText("https://wtf.myfucking.com");
+        txt.setText("http://apapi.haditabatabaei.ir");
         txt.addMouseListener(new Hover(txt, Color.gray));
         revalidate();
         repaint();
@@ -195,18 +209,66 @@ public class MiddlePanel extends JPanel {
             public void focusLost(FocusEvent e) {
                 super.focusLost(e);
                 if (txt.getText().equals(""))
-                    txt.setText("https://wtf.myfucking.com");
+                    txt.setText("http://apapi.haditabatabaei.ir");
             }
         });
         revalidate();
         repaint();
+        txt.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                super.keyTyped(e);
+                try {
+                    insomina.requestDictionary.get(insomina.key).url = txt.getText();
+                } catch (NullPointerException ignored) {
+                }
+            }
+        });
     }
+
     public Image changSize(ImageIcon icon, int x, int y) {
         return icon.getImage().getScaledInstance(x, y, Image.SCALE_DEFAULT);
     }
-    public void linkToRequest(int kind)
-    {
+
+    public void linkToRequest(int kind) {
         insomina.requestDictionary.get(insomina.key).label.setIcon(new ImageIcon(icons[kind]));
-        insomina.requestDictionary.get(insomina.key).kind=kind;
+        insomina.requestDictionary.get(insomina.key).kind = kind;
+    }
+
+    public void createResponse() {
+       new SwingWorker<String, Object>() {
+            @Override
+            protected String doInBackground() throws Exception {
+                insomina.rightPanel.removeAll();
+                insomina.rightPanel.setLayout(new BorderLayout());
+                JLabel label = new JLabel();
+                label.setIcon(new ImageIcon(icons[5]));
+                insomina.rightPanel.add(label, BorderLayout.CENTER);
+                insomina.repaint();
+                insomina.revalidate();
+                RequestModel requestModel = new RequestModel(insomina.requestDictionary.get(insomina.key).createGUIRequest());
+                if (requestModel.getSendable())
+                    new RequestSending(requestModel, insomina).sendRequest();
+                else {
+                    JOptionPane.showMessageDialog(insomina, " you put sth wrong ");
+                    GetResponsRequirement.setCode(null);
+                    GetResponsRequirement.setBytee(null);
+                    GetResponsRequirement.setBody(null);
+                    GetResponsRequirement.setTime(null);
+                }
+                return "";
+            }
+
+            @Override
+            protected void done() {
+                super.done();
+                insomina.rightPanel.removeAll();
+                System.out.println();
+                insomina.rightPanel.repaint();
+                insomina.rightPanel.revalidate();
+                // } catch (InterruptedException | NullPointerException | ExecutionException ignored) {
+                //  }
+            }
+        }.execute();
     }
 }

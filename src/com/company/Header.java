@@ -86,7 +86,6 @@ public class Header extends JPanel {
                     updateUI();
                 }
             });
-
             ch.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
@@ -96,10 +95,12 @@ public class Header extends JPanel {
                         values.setBackground(Coloring.insomniaPurple());
                         isDeletable = false;
                         headers.setEnabled(false);
-                        headers.setEditable(false);
-                        values.setEditable(false);
                         values.setEnabled(false);
-                        insomina.requestDictionary.get(insomina.key).headerTxt +=  headers.getText() + ":" + values.getText()+";";
+                        try {
+                            insomina.requestDictionary.get(insomina.key).headerTxt += headers.getText() + ":" + values.getText() + ";";
+                        } catch (NullPointerException e1) {
+                            System.out.println("ieosfjsiogjhsoi");
+                        }
                         isAble = true;
                         System.out.println("next :");
                         System.out.println(insomina.requestDictionary.get(insomina.key).headerTxt + "      header trxt");
@@ -110,19 +111,19 @@ public class Header extends JPanel {
                         values.setBackground(Coloring.darkBack());
                         isDeletable = true;
                         isAble = false;
-                        headers.setEnabled(true);
-                        headers.setFocusable(true);
-                        headers.setEditable(true);
-                        values.setEditable(true);
                         values.setEnabled(true);
+                        headers.setEnabled(true);
                         System.out.println("removing");
-                        insomina.requestDictionary.get(insomina.key).headerTxt = insomina.requestDictionary.get(insomina.key).headerTxt
-                                .replace( headers.getText() + ":" + values.getText()+";", "");
-                        System.out.println( insomina.requestDictionary.get(insomina.key).headerTxt+"   removing");
+                        try {
+                            insomina.requestDictionary.get(insomina.key).headerTxt = insomina.requestDictionary.get(insomina.key).headerTxt
+                                    .replace(headers.getText() + ":" + values.getText() + ";", "");
+                        } catch (NullPointerException e1) {
+                            System.out.println("ieosfjsiogjhsoi");
+                        }
+                        System.out.println(insomina.requestDictionary.get(insomina.key).headerTxt + "   removing");
                     }
                 }
             });
-
             headers.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {

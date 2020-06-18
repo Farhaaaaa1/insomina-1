@@ -1,12 +1,8 @@
 package com.company;
 
-import com.company.Insomina;
-import com.company.MidBar;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 /**
  * all thing here are about middle panel
  * wich have 1,2 class in it
@@ -20,17 +16,19 @@ public class RightPanel extends JPanel {
     Color colorr;
     Boolean isFirst = true;
     JPanel upBar = new JPanel();
+    Insomina insomina;
 
     /**
      * creat base of right panel here
+     *
      * @param frame
      */
-    public RightPanel(Insomina frame) {
+    public RightPanel(Insomina insomina) {
+        this.insomina = insomina;
         setLayout(new BorderLayout());
         add(upBar, BorderLayout.NORTH);
         MidBarForRight midBar = new MidBarForRight();
         add(midBar, BorderLayout.CENTER);
-
         upBar.setLayout(new FlowLayout(FlowLayout.LEFT));
         setSendBtn(time);
         setSendBtn(speed);
@@ -48,6 +46,7 @@ public class RightPanel extends JPanel {
 
     /**
      * create cb lable
+     *
      * @param c color of lable
      * @param s
      */
@@ -58,11 +57,12 @@ public class RightPanel extends JPanel {
         cb.setForeground(Color.WHITE);
         cb.setBackground(c);
         cb.setText(s);
-       // cb.setEnabled(false);
+        // cb.setEnabled(false);
     }
 
     /**
      * creat send blable
+     *
      * @param btn
      */
     public void setSendBtn(JLabel btn) {

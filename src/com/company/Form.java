@@ -1,123 +1,175 @@
 package com.company;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * in this class we will create sth like headers that we
  * put into the headers panel in middle panel .
  */
 public class Form extends JPanel {
+    Insomina insomina;
     String header = "  ";
-    String value = "   ";
+    EachHeader focousHeader;
+    String value = "  ";
     int count = 0;
-    private JPanel panel = new JPanel();
     private Boolean isAble = false;
     JPanel general = new JPanel();
-    public Form(String first, String sec) {
+    LinkedHashMap<JPanel, String> headerDictionary = new LinkedHashMap<>();
+
+    public Form(String first, String sec, Insomina insomina) {
         general.setLayout(new BoxLayout(general, BoxLayout.Y_AXIS));
         general.add(create());
         add(general);
         setBackground(Coloring.darkBack());
+        this.insomina = insomina;
     }
-    public JPanel create() {
+
+    public class EachHeader {
         JPanel panel = new JPanel();
+        Boolean isDeletable = true;
         JCheckBox ch = new JCheckBox();
-        ch.setFocusable(false);
-        panel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JTextField headers = new JTextField();
-        headers.setText(header);
-        headers.setColumns(10);
-        JLabel garbage = new JLabel(new ImageIcon(new ImageIcon("src/garbage.png").getImage().getScaledInstance(16, 14, Image.SCALE_DEFAULT)));
-        panel.setBorder(BorderFactory.createCompoundBorder(panel.getBorder(), BorderFactory.createEmptyBorder(10, 5, 5, 0)));
-        panel.add(headers);
-        headers.setForeground(Coloring.fadeWhite());
-        headers.setBackground(Coloring.darkBack());
-        headers.setBorder(BorderFactory.createCompoundBorder(headers.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
-        JTextField values = new JTextField();
-        values.setText(value);
-        values.setColumns(10);
-        values.setForeground(Coloring.fadeWhite());
-        values.setBackground(Coloring.darkBack());
-        values.setBorder(BorderFactory.createCompoundBorder(values.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
-        addHover(values, "value...");
-        addHover(headers, "name...");
-        panel.add(values);
-        ch.setBackground(Coloring.darkBack());
-        panel.add(ch);
 
-        garbage.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                System.out.println(count);
-                super.mousePressed(e);
-                if (count > 1) {
-                    general.remove(panel);
-                    count--;
+        public EachHeader() {
+            ch.setFocusable(false);
+            panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+            JTextField headers = new JTextField();
+            headers.setText(header);
+            headers.setColumns(10);
+            JLabel garbage = new JLabel(new ImageIcon(new ImageIcon("src/garbage.png").getImage().getScaledInstance(16, 14, Image.SCALE_DEFAULT)));
+            panel.setBorder(BorderFactory.createCompoundBorder(panel.getBorder(), BorderFactory.createEmptyBorder(10, 5, 5, 0)));
+            panel.add(headers);
+            headers.setForeground(Coloring.fadeWhite());
+            headers.setBackground(Coloring.darkBack());
+            headers.setBorder(BorderFactory.createCompoundBorder(headers.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
+            JTextField values = new JTextField();
+            values.setText(value);
+            values.setColumns(10);
+            values.setForeground(Coloring.fadeWhite());
+            values.setBackground(Coloring.darkBack());
+            values.setBorder(BorderFactory.createCompoundBorder(values.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 0)));
+            addHover(values, "value...");
+            addHover(headers, "name...");
+            panel.add(values);
+            ch.setBackground(Coloring.darkBack());
+            panel.add(ch);
+            garbage.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    super.mouseClicked(e);
+                    System.out.println("pak kon");
+                    System.out.println(count);
+                    System.out.println(isDeletable);
+                    super.mousePressed(e);
+                    if (count > 1 && isDeletable && !isLast(panel)) {
+                        System.out.println("we remove");
+                        if (headerDictionary.size() > 1) {
+                            headerDictionary.remove(panel);
+                            addToGeneral();
+                            count--;
+                        }
+                    }
+                    panel.updateUI();
+                    general.repaint();
+                    general.revalidate();
+                    general.updateUI();
+                    updateUI();
                 }
-                general.updateUI();
-                updateUI();
-            }
-        });
+            });
+            ch.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    super.mouseClicked(e);
+                    if (headers.getBackground().equals(Coloring.darkBack())) {
+                        headers.setBackground(Coloring.insomniaPurple());
+                        values.setBackground(Coloring.insomniaPurple());
+                        isDeletable = false;
+                        headers.setEnabled(false);
+                        values.setEnabled(false);
+                        try {
+                            insomina.requestDictionary.get(insomina.key).formTxt += headers.getText() + "=" + values.getText() + "&";
+                            insomina.requestDictionary.get(insomina.key).messageBody = insomina.requestDictionary.get(insomina.key).formTxt;
+                        } catch (NullPointerException e1) {
+                            System.out.println("ieosfjsiogjhsoi");
+                        }
+                        isAble = true;
+                        System.out.println("next :");
+                        System.out.println(insomina.requestDictionary.get(insomina.key).formTxt + "      form trxt");
+                    }
+                    // off
+                    else {
+                        headers.setBackground(Coloring.darkBack());
+                        values.setBackground(Coloring.darkBack());
+                        isDeletable = true;
+                        isAble = false;
+                        values.setEnabled(true);
+                        headers.setEnabled(true);
+                        System.out.println("removing");
+                        try {
+                            insomina.requestDictionary.get(insomina.key).formTxt = insomina.requestDictionary.get(insomina.key).formTxt
+                                    .replace(headers.getText() + "=" + values.getText() + "&", "");
+                            insomina.requestDictionary.get(insomina.key).messageBody = insomina.requestDictionary.get(insomina.key).formTxt;
+                        } catch (NullPointerException e1) {
+                            System.out.println("ieosfjsiogjhsoi");
+                        }
+                        System.out.println(insomina.requestDictionary.get(insomina.key).headerTxt + "   removing");
+                    }
+                }
+            });
+            headers.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    super.mousePressed(e);
+                    String newText = headers.getText().replaceAll(" ", "");
+                    String newText1 = values.getText().replaceAll(" ", "");
+                    newText = newText.replaceAll("name...", "");
+                    newText1 = newText1.replaceAll("value...", "");
+                    if (newText.equals("") && newText1.equals(""))
+                        general.add(create());
+                    general.updateUI();
+                    updateUI();
+                }
+            });
+            values.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    super.mousePressed(e);
+                    String newText = headers.getText().replaceAll(" ", "");
+                    String newText1 = values.getText().replaceAll(" ", "");
+                    newText = newText.replaceAll("name...", "");
+                    newText1 = newText1.replaceAll("value...", "");
+                    System.out.println(newText + "   " + newText1);
+                    if (newText.equals("") && newText1.equals("")) {
+                        general.add(create());
+                        System.out.println("here");
+                    }
+                    general.updateUI();
+                    updateUI();
+                }
+            });
+            panel.add(garbage);
+            panel.setBackground(Coloring.darkBack());
+            count++;
+        }
+    }
 
-        ch.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                if (headers.getBackground().equals(Coloring.darkBack())) {
-                    headers.setBackground(Coloring.insomniaPurple());
-                    values.setBackground(Coloring.insomniaPurple());
-                    isAble = true;
-                } else {
-                    headers.setBackground(Coloring.darkBack());
-                    values.setBackground(Coloring.darkBack());
-                    isAble = false;
-                }
-            }
-        });
-        headers.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                String newText = headers.getText().replaceAll(" ", "") ;
-                String newText1 = values.getText().replaceAll(" ", "") ;
-                newText = newText.replaceAll("name...","");
-                newText1 = newText1.replaceAll("value...","");
-                if (newText.equals("")&&newText1.equals(""))
-                    general.add(create());
-                general.updateUI();
-                updateUI();
-            }
-        });
-        values.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                super.focusGained(e);
-                String newText = headers.getText().replaceAll(" ", "") ;
-                String newText1 = values.getText().replaceAll(" ", "") ;
-                newText = newText.replaceAll("name...","");
-                newText1 = newText1.replaceAll("value...","");
-                if (newText.equals("")&&newText1.equals(""))
-                    general.add(create());
-                general.updateUI();
-                updateUI();
-            }
-        });
-        panel.add(garbage);
-        panel.setBackground(Coloring.darkBack());
-        count++;
-        return panel;
+    public JPanel create() {
+        EachHeader header = new EachHeader();
+        headerDictionary.put(header.panel, String.valueOf(System.currentTimeMillis()));
+        return header.panel;
     }
 
     /**
      * with this method we put
      * hover action on them
-     * @param txt our textfield
+     *
+     * @param txt      our text field
      * @param defaultt whats our default text
      */
     public void addHover(JTextField txt, String defaultt) {
@@ -135,5 +187,27 @@ public class Form extends JPanel {
         });
         revalidate();
         repaint();
+    }
+
+    public void headerDictionary() {
+
+    }
+
+    public void addToGeneral() {
+        general.removeAll();
+        for (Map.Entry<JPanel, String> A :
+                headerDictionary.entrySet()) {
+            general.add((JPanel) A.getKey());
+        }
+    }
+
+    public boolean isLast(JPanel panel) {
+        long maxTime = 0;
+        for (Map.Entry<JPanel, String> A :
+                headerDictionary.entrySet()) {
+            if (Long.parseLong(A.getValue()) > maxTime)
+                maxTime = Long.parseLong(A.getValue());
+        }
+        return maxTime == Long.parseLong(headerDictionary.get(panel));
     }
 }

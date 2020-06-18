@@ -1,13 +1,10 @@
 package com.company;
 
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIInlineBinaryData;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.Serializable;
-import java.util.LinkedList;
+import java.util.Arrays;
 
 /**
  * creat request here
@@ -16,13 +13,21 @@ import java.util.LinkedList;
 public class Request extends Files {
     Insomina insomina;
     String headerTxt = "";
+    String jsonTxt = "-j ";
+    String uploadTxt = " --upload ";
+    String formTxt = "-d ";
     JLabel label;
+    String messageBody = "";
+    String url = "http://apapi.haditabatabaei.ir/docs";
     int kind;
     JLabel labelTxt;
     String noNumber;
     JPanel panel = new JPanel();
     JPanel temp = new JPanel();
     Header header;
+    Form form;
+    JsonPanel jsonPanel;
+    BinaryPanel binaryPanel;
     // image of kinds of requests
     int x = 27;
     int y = 14;
@@ -36,6 +41,9 @@ public class Request extends Files {
         this.kind = kind;
         this.noNumber = noNumber;
         header = new Header("", "", insomina);
+        form = new Form("", "", insomina);
+        jsonPanel = new JsonPanel(insomina);
+        binaryPanel = new BinaryPanel(insomina);
         text = txt;
         this.insomina = insomina;
         this.color = color;
@@ -112,13 +120,25 @@ public class Request extends Files {
 
             @Override
             public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
                 insomina.key = noNumber;
+                JPanel m = new JPanel();
+                m.setBackground(new Color(0x282828));
+                m.setLayout(new BorderLayout());
+                JLabel hand = new JLabel(new ImageIcon("src/hand.png"));
+                m.add(hand, BorderLayout.CENTER);
                 insomina.middlePanel.setCb(getColor(kind), getText(kind));
                 insomina.middlePanel.revalidate();
-                insomina.middlePanel.midBar.middleBar.remove(4);
+                insomina.middlePanel.midBar.middleBar.removeAll();
+                insomina.middlePanel.midBar.middleBar.add("hand", m);
+                insomina.middlePanel.midBar.middleBar.add("binary", binaryPanel);
+                insomina.middlePanel.midBar.middleBar.add("JSON", jsonPanel);
+                insomina.middlePanel.midBar.middleBar.add("form", form);
                 insomina.middlePanel.midBar.middleBar.add("Head", header);
+                System.out.println(Arrays.toString(new int[]{insomina.middlePanel.midBar.middleBar.getComponents().length}) + "  size");
+                System.out.println("json " + jsonTxt + " header " + headerTxt + "  upload " + uploadTxt + "  form  " + formTxt);
+                System.out.println(createGUIRequest());
                 insomina.middlePanel.midBar.updateUI();
-                super.mouseClicked(e);
             }
         });
     }
@@ -143,7 +163,7 @@ public class Request extends Files {
     public String getText(int kind) {
         switch (kind) {
             case 0:
-                return "DEL";
+                return "DELETE";
             case 1:
                 return "GET";
             case 2:
@@ -151,9 +171,23 @@ public class Request extends Files {
             case 3:
                 return "PUT";
             case 4:
-                return "PATC";
+                return "PATCH";
             default:
                 return "";
         }
+    }
+
+    public String createGUIRequest() {
+        String request = url + " --method " + getText(this.kind) + " ";
+        System.out.println("");
+        System.out.println(messageBody + "  messege body");
+        messageBody=messageBody.replaceAll("\\s{2,}", " ");
+        System.out.println(messageBody.split(" ").length);
+        if(messageBody.split(" ").length>1)
+            request = request+messageBody;
+        if (!headerTxt.equals(""))
+            return request + " --headers " + headerTxt;
+        else
+            return request;
     }
 }
